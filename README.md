@@ -14,6 +14,10 @@ Merge Sort of the list works in such a way that every time the algorithm splits 
 
 This method will allow thread reuse while also ensuring that there is a maximal cover of threads for each part of the list. At the end of each sorting cycle, the parent will wait for the child thread to terminate and will merge the two parts of the sorted list back together.
 
+### bubblesort.c
+
+### quicksort.c
+
 ##### Summary of Functions
 
 `void mergesort(int arr[], int size, int num_threads)`
@@ -37,10 +41,6 @@ Since the function operates separately on different parts of the array, semaphor
 ### bubblesort.c
 
 ### main.c
-
-
-##### Summary of Functions
-
 
 ##### Summary of Data Types
 
