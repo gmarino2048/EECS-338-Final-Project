@@ -14,12 +14,6 @@ Merge Sort of the list works in such a way that every time the algorithm splits 
 
 This method will allow thread reuse while also ensuring that there is a maximal cover of threads for each part of the list. At the end of each sorting cycle, the parent will wait for the child thread to terminate and will merge the two parts of the sorted list back together.
 
-### bubblesort.c
-
-### quicksort.c
-
-### main.c
-
 ##### Summary of Functions
 
 `void mergesort(int arr[], int size, int num_threads)`
@@ -38,13 +32,14 @@ The merge function merges the lists from first to second, and then from second t
 
 Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attributes and we will have each thread keep track of its position in the master array independently.
 
-For merging each of the segmented lists together, we will use a temporary array to move
+For merging each of the segmented lists together, we will use a temporary array to merge the items, and then swap move each element in the temporary array to the corresponding element in the initial array.
 
 ##### Sample output
 
-Merge Sort does not give any output
+Merge Sort does not give any output.
 
-<<<<<<< HEAD
+
+
 ### quicksort.c
 
 ##### Summary of functions
@@ -52,6 +47,9 @@ Merge Sort does not give any output
 ##### Summary of Data Types
 
 ##### Sample Output
+
+Quick Sort does not give any output.
+
 
 ### bubblesort.c
 
@@ -61,14 +59,15 @@ Merge Sort does not give any output
 
 ##### Sample Output
 
+Bubble Sort does not give any output.
+
+
 ### main.c
 
 
 ##### Summary of Functions
 
 
-=======
->>>>>>> 05a0068f07cbfa172d08cc02bc8d3aed3fd31645
 ##### Summary of Data Types
 
 
