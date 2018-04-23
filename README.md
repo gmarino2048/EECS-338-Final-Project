@@ -30,11 +30,29 @@ The merge function merges the lists from first to second, and then from second t
 
 ##### Summary of Data Types
 
-Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to
+Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attributes and we will have each thread keep track of its position in the master array independently.
+
+For merging each of the segmented lists together, we will use a temporary array to move
+
+##### Sample output
+
+Merge Sort does not give any output
 
 ### quicksort.c
 
+##### Summary of functions
+
+##### Summary of Data Types
+
+##### Sample Output
+
 ### bubblesort.c
+
+##### Summary of functions
+
+##### Summary of Data Types
+
+##### Sample Output
 
 ### main.c
 

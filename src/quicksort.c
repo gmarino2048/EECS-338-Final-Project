@@ -16,6 +16,7 @@ struct params {
 };
 
 void swap (int list[], int index1, int index2);
+void partition (int arr[], int partitionIndex);
 
 
 int quicksort_setup (int list[], int maxThreads){
