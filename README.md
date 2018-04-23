@@ -53,6 +53,10 @@ The merge function merges the lists from first to second, and then from second t
 
 This function is utilized in the file "main.c". The purpose of this method is to generate a random array. The function utilizes the system time to create a psudo-random number that will be added into an array and later sorted for the purpose of testing. There is additional functionallity in the upperBound and lowerBound arguments, but for clarity in our main method we used fixed values here.
 
+`void main()`
+
+This function is utilized in the file "main.c". The purpose of this method is to produce a csv file that will produce an output that is explained further later in the report. The function utilizes the system time in order to time how long it takes each sorting algorithm at different parameters to fully sort its array. Additionally, the method utilizes the `randomArray` function in order to produce psudo-random arrays.
+
 ##### Summary of Data Types
 
 Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to
