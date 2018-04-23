@@ -49,7 +49,17 @@ This function will be called by each child thread and will be responsible for sp
 
 The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
 
+`void swap(int list[], int index1, int index2)`
 
+The swap function of the "quicksort.c" file can take an array "list[]", and two indexes; "index1", and "index2". This method will then modify the "list[]" variable in such a way that the element at "index1" swaps with the element at "index2" of the list.
+
+`void partition(int arr[], int partitionIndex)`
+
+The partition function of the "quicksort.c" file can take an array "arr[]" and a partition index. The list will then partition at the index, sending one of of the array to be sorted by the parent thread recursively, and the other half of the array to be sorted recursively by the child. This will continue until either the maximum number of the threads are reached, or a section of the list is sorted. The parent will wait for its child, and this will cascade until the list is completley sorted. 
+
+ `int quicksort_setup(int list[], int maxThreads)`
+ 
+ This method of the "quicksort.c" file is used to ensure that the maximum number of threads are not in use. 
 
 `void randomArray(int lowerBound, int upperBound, int arraySize)`
 
