@@ -15,8 +15,15 @@ struct params {
   int stop;
 };
 
-void swap (int list[], int index1, int index2);
-void partition (int arr[], int partitionIndex);
+void swap (int list[], int index1, int index2){
+ int temp = list[index1];
+ list[index1] = list[index2];
+ list[index2] = temp;
+}
+
+void partition (int arr[], int partitionIndex){
+ //This method must be written, it will partition data at a partition index 
+}
 
 
 int quicksort_setup (int list[], int maxThreads){
