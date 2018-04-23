@@ -78,3 +78,8 @@ Some artificially generated output (NOT ACCURATE) can be seen below:
 32,200,21.643,21.743,15.933
 ...
 ```
+##Work Distribution
+
+####Noah Houpt
+
+So far on the project I have implemented the bubblesort.c algorithm and the mergesort.c algorithm. Additionally I have wrote the randomArray() method of the main.c file, and commented on the main.c file. Between this submission and the submission for the final project, I plan on completing the mergesort.c algorithm as well as data analysis of the main.c file's output. 
