@@ -61,9 +61,6 @@ This function is utilized in the file "main.c". The purpose of this method is to
 
 Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to
 
-##### Summary of Data Types
-
-
 ##### Sample Output
 
 The main method will output a csv file that can then be plotted. The csv file will be in the following format:
