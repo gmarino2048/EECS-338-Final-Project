@@ -49,7 +49,7 @@ This function will be called by each child thread and will be responsible for sp
 
 The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
 
-`void randomArray(int lowerBound, int upperBound, int arraySize);
+`void randomArray(int lowerBound, int upperBound, int arraySize)
 
 This function is utilized in the file "main.c". The purpose of this method is to generate a random array. The function utilizes the system time to create a psudo-random number that will be added into an array and later sorted for the purpose of testing. There is additional functionallity in the upperBound and lowerBound arguments, but for clarity in our main method we used fixed values here.
 
