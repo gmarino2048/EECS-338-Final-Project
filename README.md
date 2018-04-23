@@ -18,7 +18,7 @@ This method will allow thread reuse while also ensuring that there is a maximal 
 
 ### quicksort.c
 
-
+Quick sort of the list works in a way such that after every partition is created, a new child thread will be created that will take the second part of the patitioned list. After the list is split, the parent will work on their half while the child works on theirs. The list will continue splitting until either the list is sorted, or the maximum number of usable threads is reached. Once any section of the list is sorted, the parent will wait for the child. This will cascade until the entire list is completely sorted. 
 
 ### main.c
 
@@ -29,7 +29,7 @@ Number of threads: 1, 2, 4, 8, 16, 32, 64
 Length of Array: 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000,
 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, and 500000000
 
-Different Sorting Algorithms: Bubble, Quick, Merge
+Sorting Algorithms: Bubble, Quick, Merge
 
 Looking at the different parameters, it can be calculated that there will be 504 different data points to look at, with each algorithm having 168 points of data. 
 
@@ -48,6 +48,8 @@ This function will be called by each child thread and will be responsible for sp
 `void merge(int arr[], int first, int second, int stop)`
 
 The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
+
+
 
 `void randomArray(int lowerBound, int upperBound, int arraySize)`
 
