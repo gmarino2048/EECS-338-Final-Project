@@ -18,6 +18,8 @@ This method will allow thread reuse while also ensuring that there is a maximal 
 
 ### quicksort.c
 
+### main.c
+
 ##### Summary of Functions
 
 `void mergesort(int arr[], int size, int num_threads)`
@@ -35,12 +37,6 @@ The merge function merges the lists from first to second, and then from second t
 ##### Summary of Data Types
 
 Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to
-
-### quicksort.c
-
-### bubblesort.c
-
-### main.c
 
 ##### Summary of Data Types
 
