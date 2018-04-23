@@ -52,6 +52,11 @@ void MergeSort(int *A,int n) {
         free(R);
 }
 
+// This function is not yet complete and needs to be implemented
+void *mergesort_helper(void *args){
+	
+}
+
 int main(int argc, char *argv[]) {
 	/* Code to test the MergeSort function. */
 
