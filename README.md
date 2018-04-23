@@ -14,6 +14,27 @@ Merge Sort of the list works in such a way that every time the algorithm splits 
 
 This method will allow thread reuse while also ensuring that there is a maximal cover of threads for each part of the list. At the end of each sorting cycle, the parent will wait for the child thread to terminate and will merge the two parts of the sorted list back together.
 
+### bubblesort.c
+
+### quicksort.c
+
+
+
+### main.c
+
+Main is utilized to test our sorting algoirthms. The methodology for this is to time the functions at each parameter. The parameters we will be testing are as follows:
+
+Number of threads: 1, 2, 4, 8, 16, 32, 64
+
+Length of Array: 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000,
+500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, and 500000000
+
+Different Sorting Algorithms: Bubble, Quick, Merge
+
+Looking at the different parameters, it can be calculated that there will be 504 different data points to look at, with each algorithm having 168 points of data. 
+
+The arrays will be generated using the function randomArray(), where randomArray() takes in a parameter for the size of the array, a lower bound and an upper bound. 
+
 ##### Summary of Functions
 
 `void mergesort(int arr[], int size, int num_threads)`
@@ -28,45 +49,13 @@ This function will be called by each child thread and will be responsible for sp
 
 The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
 
-##### Summary of Data Types
+`void randomArray(int lowerBound, int upperBound, int arraySize);
 
-Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attributes and we will have each thread keep track of its position in the master array independently.
-
-For merging each of the segmented lists together, we will use a temporary array to merge the items, and then swap move each element in the temporary array to the corresponding element in the initial array.
-
-##### Sample output
-
-Merge Sort does not give any output.
-
-
-
-### quicksort.c
-
-##### Summary of functions
+This function is utilized in the file "main.c". The purpose of this method is to generate a random array. The function utilizes the system time to create a psudo-random number that will be added into an array and later sorted for the purpose of testing. There is additional functionallity in the upperBound and lowerBound arguments, but for clarity in our main method we used fixed values here.
 
 ##### Summary of Data Types
 
-##### Sample Output
-
-Quick Sort does not give any output.
-
-
-### bubblesort.c
-
-##### Summary of functions
-
-##### Summary of Data Types
-
-##### Sample Output
-
-Bubble Sort does not give any output.
-
-
-### main.c
-
-
-##### Summary of Functions
-
+Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to
 
 ##### Summary of Data Types
 
