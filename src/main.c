@@ -1,6 +1,8 @@
 //Main function that calls the sorting algorithms
 //Noah Houpt and Guy Marino
 
+#define N 500000000
+
 
 /*The purpose of this script is to 
 implement the sorting algorithms with various parameters
@@ -23,6 +25,19 @@ The fucntions we are working with are:
 quicksort(int[] array, int threadCount);
 mergesort(int[] array, int threadCount);
 bubblesort(int[] array, int threadCount);*/
+
+//Global variables containing array that will be modified and overwritten throughout the testing
+int[] array[N];
+
+void RandomArray(int lowerBound, int upperBound, int arraySize){
+	int i = 0;
+	srand(time(0));
+	for(i = 0; i < arraySize; i++){
+		int number = (rand() % (upperBound - lowerBound + 1)) + lowerBound;
+		array[i] = number;
+	}
+}
+
 main(){
 	
 
