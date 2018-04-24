@@ -106,8 +106,7 @@ The partition function of the "quicksort.c" file can take an array "arr[]" and a
 
 ##### Sample Output
 
-
-
+Quick Sort returns no output.
 
 ### main.c
 
