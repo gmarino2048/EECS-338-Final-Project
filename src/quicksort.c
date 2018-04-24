@@ -44,3 +44,7 @@ int quicksort_setup (int list[], int maxThreads){
 
 
 }
+
+int[] quicksort(int arr[], int threads, int size){
+ //this method still must be completed, serves as a wrapper class 
+}
