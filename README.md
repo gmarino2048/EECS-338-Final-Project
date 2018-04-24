@@ -102,7 +102,11 @@ The partition function of the "quicksort.c" file can take an array "arr[]" and a
 
 ##### Summary of Data Types
 
+Similarly to Merge Sort, since the function will operate on seperate sections of the array, semaphores are unecessary here. Additionally, Quick Sort uses an array of pthreads with different tid's and and an array of different attributes. 
 
+However, there will be a semaphore used to protect any global variables that may be used during the process. 
+
+The only data type that we created for this file is the struct `params` that will be used to hold the array of tids, attributes, and various other values. 
 
 ##### Sample Output
 
