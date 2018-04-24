@@ -143,7 +143,7 @@ This function is responsible for taking the data from each successful run and ou
 
 ##### Summary of Data Types
 
-Since the main script is responsible for timing each of the functions,
+Since the main script is responsible for timing each of the functions, we will utilize the struct "timeval" from homework 4 in order to time our functions. We will also use an array of the maximum size, 500000000, and modify the values in that array continuously for each of the tests. 
 
 ##### Sample Output
 
@@ -167,7 +167,7 @@ Some artificially generated output (NOT ACCURATE) can be seen below:
 
 #### Noah Houpt
 
-So far on the project I have implemented the bubblesort.c algorithm, the mergesort.c algorithm, and the swap method of quicksort.c. Additionally I have wrote the randomArray() method of the main.c file, and commented on the main.c file. Between this submission and the submission for the final project, I plan on completing the mergesort.c algorithm as well as data analysis of the main.c file's output.
+So far on the project I have implemented the bubblesort.c algorithm, the mergesort.c algorithm, and the swap method of quicksort.c. Additionally I have wrote the randomArray() method of the main.c file, and commented on the main.c file. Between this submission and the submission for the final project, I plan on completing the mergesort.c algorithm as well as data analysis of the main.c file's output. I plan to utilize Mathematica as a way to visualize the data if possible. 
 
 #### Guy Marino
 
