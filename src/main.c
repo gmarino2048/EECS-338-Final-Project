@@ -1,8 +1,11 @@
 //Main function that calls the sorting algorithms
 //Noah Houpt and Guy Marino
+#include <stdio.h>
+#include <sys/time.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #define N 500000000
-
 
 /*The purpose of this script is to
 implement the sorting algorithms with various parameters
@@ -40,7 +43,7 @@ void RandomArray(int lowerBound, int upperBound, int arraySize){
 
 // The main method has yet to be implemented because the other methods are not yet complete
 int main(){
-
+	struct timeval start_time, stop_time, elapsed_time;
 
 }
 
