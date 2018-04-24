@@ -13,7 +13,8 @@ int A[] = {6,2,3,1,9,10,15,13,12,17};
 // Function to Merge Arrays L and R into A.
 // lefCount = number of elements in L
 // rightCount = number of elements in R.
-void Merge(int *A,int *L,int leftCount,int *R,int rightCount) {
+// This function needs to be modified to work in a single list but I don't have time rn
+void merge(int *A,int *L,int leftCount,int *R,int rightCount) {
 	int i,j,k;
 
 	// i - to mark the index of left aubarray (L)
@@ -30,7 +31,8 @@ void Merge(int *A,int *L,int leftCount,int *R,int rightCount) {
 }
 
 // Recursive function to sort an array of integers.
-void MergeSort(int *A,int n) {
+// Needs to be modified to work in the same array
+int[] mergesort(int A,int n) {
 	int mid,i, *L, *R;
 	if(n < 2) return; // base condition. If the array has less than two element, do nothing.
 
@@ -54,7 +56,7 @@ void MergeSort(int *A,int n) {
 
 // This function is not yet complete and needs to be implemented
 void *mergesort_helper(void *args){
-	
+
 }
 
 int main(int argc, char *argv[]) {

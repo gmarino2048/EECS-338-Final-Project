@@ -9,6 +9,7 @@ int size;
 void swap(int i, int j);
 
 // A function to implement bubble sort
+// This method is not yet complete
 void bubbleSort(int arr[], int n){
    int i, j;
    size = n;
@@ -23,6 +24,11 @@ void bubbleSort(int arr[], int n){
 		   }
 		}
    }
+}
+
+// This method has yet to be implemented
+void *bubble (void *args){
+
 }
 
 

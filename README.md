@@ -17,7 +17,7 @@ This method will allow thread reuse while also ensuring that there is a maximal 
 
 ##### Summary of Functions
 
-`void mergesort(int arr[], int size, int num_threads)`
+`int[] mergesort(int arr[], int size, int num_threads)`
 
 This function will mergesort the list using the function `mergesort_helper`. This function is a wrapper funciton based designed to sort the entire array.
 
@@ -51,7 +51,7 @@ Due to limited space on the list, however, the maximum number of threads which c
 
 ##### Summary of functions
 
-`void bubblesort (int arr[], int threads, int elements)`
+`int[] bubblesort (int arr[], int threads, int elements)`
 
 This function will be a wrapper function which will allow the bubble sort method to be called quickly and easily from the main script. This function will also be responsible for calculating the thread requirements for each list and instantiating that many threads.
 
@@ -84,7 +84,7 @@ Quick sort of the list works in a way such that after every partition is created
 
 ##### Summary of functions
 
-`void quicksort(int arr[], int threads, int size)`
+`int[] quicksort(int arr[], int threads, int size)`
 
 This function will be a wrapper class designed to be called in the main.c file.
 

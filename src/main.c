@@ -4,7 +4,7 @@
 #define N 500000000
 
 
-/*The purpose of this script is to 
+/*The purpose of this script is to
 implement the sorting algorithms with various parameters
 the parameters we are testing are:
 
@@ -17,7 +17,7 @@ Length of Array: 10, 20, 50, 100, 200, 500,
 
 Different Sorting Algorithms: Bubble, Quick, Merge
 
-We will be timing each of these parameters in order to 
+We will be timing each of these parameters in order to
 check the data and obtain a result of the experiment
 
 The fucntions we are working with are:
@@ -27,7 +27,7 @@ mergesort(int[] array, int threadCount);
 bubblesort(int[] array, int threadCount);*/
 
 //Global variables containing array that will be modified and overwritten throughout the testing
-int[] array[N];
+int array[N];
 
 void RandomArray(int lowerBound, int upperBound, int arraySize){
 	int i = 0;
@@ -38,7 +38,19 @@ void RandomArray(int lowerBound, int upperBound, int arraySize){
 	}
 }
 
-main(){
-	
+// The main method has yet to be implemented because the other methods are not yet complete
+int main(){
+
+
+}
+
+
+// The validate method has not yet been implemented
+int validate (int array[], int size){
+
+}
+
+// The writeout method has not yet been implemented
+int writeout (struct data arguments) {
 
 }
