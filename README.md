@@ -34,6 +34,8 @@ Since the function operates separately on different parts of the array, semaphor
 
 For merging each of the segmented lists together, we will use a temporary array to merge the items, and then swap move each element in the temporary array to the corresponding element in the initial array.
 
+
+
 ##### Sample output
 
 Merge Sort does not give any output.
