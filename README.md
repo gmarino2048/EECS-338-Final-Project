@@ -14,26 +14,6 @@ Merge Sort of the list works in such a way that every time the algorithm splits 
 
 This method will allow thread reuse while also ensuring that there is a maximal cover of threads for each part of the list. At the end of each sorting cycle, the parent will wait for the child thread to terminate and will merge the two parts of the sorted list back together.
 
-### bubblesort.c
-
-### quicksort.c
-
-Quick sort of the list works in a way such that after every partition is created, a new child thread will be created that will take the second part of the patitioned list. After the list is split, the parent will work on their half while the child works on theirs. The list will continue splitting until either the list is sorted, or the maximum number of usable threads is reached. Once any section of the list is sorted, the parent will wait for the child. This will cascade until the entire list is completely sorted.
-
-### main.c
-
-Main is utilized to test our sorting algoirthms. The methodology for this is to time the functions at each parameter. The parameters we will be testing are as follows:
-
-Number of threads: 1, 2, 4, 8, 16, 32, 64
-
-Length of Array: 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000,
-500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, and 500000000
-
-Sorting Algorithms: Bubble, Quick, Merge
-
-Looking at the different parameters, it can be calculated that there will be 504 different data points to look at, with each algorithm having 168 points of data.
-
-The arrays will be generated using the function randomArray(), where randomArray() takes in a parameter for the size of the array, a lower bound and an upper bound.
 
 ##### Summary of Functions
 
@@ -49,6 +29,43 @@ This function will be called by each child thread and will be responsible for sp
 
 The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
 
+##### Summary of Data Types
+
+Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to operate on separate parts of the array.
+
+The threads themselves will be allocated in such a way that no two threads will be able to operate on the same elements of the list at a time, to ensure that the entire operation is thread safe. Any global variables used in the merge sort methods (save the array) will be wrapped in a semaphore to ensure that the entire process is thread safe.
+
+The only additional data type will be the struct used to pass information from the functions to the `mergesort_helper` function. This struct will include the start and end values of the array to be sorted, and the
+
+##### Sample Output
+
+Merge Sort returns no output.
+
+### bubblesort.c
+
+##### Summary of functions
+
+
+
+##### Summary of Data Types
+
+To prevent two of the bubbles from colliding with each other, a global list of the
+
+##### Sample Output
+
+Bubble Sort will return no output.
+
+### quicksort.c
+
+Quick sort of the list works in a way such that after every partition is created, a new child thread will be created that will take the second part of the patitioned list. After the list is split, the parent will work on their half while the child works on theirs. The list will continue splitting until either the list is sorted, or the maximum number of usable threads is reached. Once any section of the list is sorted, the parent will wait for the child. This will cascade until the entire list is completely sorted.
+
+
+##### Summary of functions
+
+`void quicksort(int arr[], int cores, int size)`
+
+This function will be a wrapper class designed to be called in the main.c file.
+
 `void swap(int list[], int index1, int index2)`
 
 The swap function of the "quicksort.c" file can take an array "list[]", and two indexes; "index1", and "index2". This method will then modify the "list[]" variable in such a way that the element at "index1" swaps with the element at "index2" of the list.
@@ -61,17 +78,49 @@ The partition function of the "quicksort.c" file can take an array "arr[]" and a
 
  This method of the "quicksort.c" file is used to ensure that the maximum number of threads are not in use.
 
-`void randomArray(int lowerBound, int upperBound, int arraySize)`
+##### Summary of Data Types
 
-This function is utilized in the file "main.c". The purpose of this method is to generate a random array. The function utilizes the system time to create a psudo-random number that will be added into an array and later sorted for the purpose of testing. There is additional functionallity in the upperBound and lowerBound arguments, but for clarity in our main method we used fixed values here.
+
+
+##### Sample Output
+
+
+
+
+### main.c
+
+Main is utilized to test our sorting algoirthms. The methodology for this is to time the functions at each parameter. The parameters we will be testing are as follows:
+
+Number of threads: 1, 2, 4, 8, 16, 32, 64
+
+Length of Array: 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000,
+500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, and 500000000
+
+Sorting Algorithms: Bubble Sort, Quick Sort, Merge Sort
+
+Looking at the different parameters, it can be calculated that there will be 504 different data points to look at, with each algorithm having 168 points of data.
+
+The arrays will be generated using the function randomArray(), where randomArray() takes in a parameter for the size of the array, a lower bound and an upper bound.
+
+##### Summary of Functions
 
 `void main()`
 
 This function is utilized in the file "main.c". The purpose of this method is to produce a csv file that will produce an output that is explained further later in the report. The function utilizes the system time in order to time how long it takes each sorting algorithm at different parameters to fully sort its array. Additionally, the method utilizes the `randomArray` function in order to produce psudo-random arrays.
 
+`void randomArray(int lowerBound, int upperBound, int arraySize)`
+
+This function is utilized in the file "main.c". The purpose of this method is to generate a random array. The function utilizes the system time to create a psudo-random number that will be added into an array and later sorted for the purpose of testing. There is additional functionallity in the upperBound and lowerBound arguments, but for clarity in our main method we used fixed values here.
+
+`int validate(int *array, int size)`
+
+The validate function takes a pointer to the head of an array and ensures that the array is, in fact, sorted. If the array is sorted, then the output is written to a file. If the array is not sorted then the function throws an error and terminates.
+
+``
+
 ##### Summary of Data Types
 
-Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to
+
 
 ##### Sample Output
 
