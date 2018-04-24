@@ -43,17 +43,39 @@ Merge Sort returns no output.
 
 ### bubblesort.c
 
+This algorithm acts as a modified version of bubblesort. Instead of having one bubble move up the list continuously, this function will have multiple threads that do comparisons and swapping at once. These individual 'bubbles' will move up the list one after another, and will be cycled back to the beginning once they reach the end of the list.
+
+This algorithm has several advantages over traditional bubble sort, since the algorithm runs multiple bubbles at once, it should divide the work needed to be done by the algorithm by a factor of the number of active threads.
+
+Due to limited space on the list, however, the maximum number of threads which can be in use at one time is the number of elements in the list divided by two.
+
 ##### Summary of functions
 
+`void bubblesort (int arr[], int threads, int elements)`
 
+This function will be a wrapper function which will allow the bubble sort method to be called quickly and easily from the main script. This function will also be responsible for calculating the thread requirements for each list and instantiating that many threads.
+
+`void *bubble (void *args)`
+
+This function will be run by each individual thread. The bubble function will be responsible for comparing and swapping values, as well as waiting until all threads have completed before incrementing its thread's position in the list.
+
+`void swap (int arr[], int index1, int index2)`
+
+This function's sole responsibility is to swap the values at index1 and index2 in the array. Using these three functions, we can implement a version of bubblesort which uses multiple threads to decrease the amount of work that needs to be done.
 
 ##### Summary of Data Types
 
-To prevent two of the bubbles from colliding with each other, a global list of the
+To prevent two of the bubbles from colliding with each other, there will be a global flag which notifies each bubble when to increment value and swap. This will keep the bubbles from attempting to modify the same values at a time, and should yield faster results than other solutions such as maintaining a list of all bubble positions. This allows each bubble to increment itself, instead of incrementing the position of each bubble separately.
+
+There will also be a global count which will show how many active threads have been completed. This variable will be the trigger for each of the active threads to increment once it reaches the total number of threads. This variable must be controlled by a semaphore.
+
+The program must also contain a flag which notifies the program once the list has been sorted. This flag will either be 0 or 1, and will change value after a thread reaches the end of the function without having to perform any swaps.
+
+Since we are incrementing each thread's position at the same time, we do not need to surround each element with semaphores, as the threads will be kept from ever interacting with the same values at the same time. This will allow us to keep the memory cost of this implementation low, while also maintaining its thread safety.
 
 ##### Sample Output
 
-Bubble Sort will return no output.
+Bubble Sort returns no output.
 
 ### quicksort.c
 
@@ -62,7 +84,7 @@ Quick sort of the list works in a way such that after every partition is created
 
 ##### Summary of functions
 
-`void quicksort(int arr[], int cores, int size)`
+`void quicksort(int arr[], int threads, int size)`
 
 This function will be a wrapper class designed to be called in the main.c file.
 
@@ -116,11 +138,13 @@ This function is utilized in the file "main.c". The purpose of this method is to
 
 The validate function takes a pointer to the head of an array and ensures that the array is, in fact, sorted. If the array is sorted, then the output is written to a file. If the array is not sorted then the function throws an error and terminates.
 
-``
+`int writeout(struct data *arguments)`
+
+This function is responsible for taking the data from each successful run and outputting it to a file. The data structure is what will contain each of the integers and doubles that the program will write to
 
 ##### Summary of Data Types
 
-
+Since the main script is responsible for timing each of the functions,
 
 ##### Sample Output
 
@@ -139,6 +163,7 @@ Some artificially generated output (NOT ACCURATE) can be seen below:
 32,200,21.643,21.743,15.933
 ...
 ```
+
 ## Work Distribution
 
 #### Noah Houpt
@@ -146,3 +171,7 @@ Some artificially generated output (NOT ACCURATE) can be seen below:
 So far on the project I have implemented the bubblesort.c algorithm, the mergesort.c algorithm, and the swap method of quicksort.c. Additionally I have wrote the randomArray() method of the main.c file, and commented on the main.c file. Between this submission and the submission for the final project, I plan on completing the mergesort.c algorithm as well as data analysis of the main.c file's output.
 
 #### Guy Marino
+
+I primarily worked on the report for the beta, as I was able to implement the merge and bubble sort sections as well as work on the main section and create all of the images used in the report. I also worked on the quicksort.c file rudimentarily and created the makefile to generate the executable file for this report.
+
+Moving forward, I will bring multithreading into quicksort and bubble sort, as it is not currently supported. I am also going to attempt to make 3D plots of the data in python, if time permits.
