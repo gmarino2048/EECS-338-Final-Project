@@ -126,8 +126,6 @@ void merge (int * arr, int start, int middle, int stop){
 
   printf("%d, %d\n", start, stop);
 
-  printf("%d, %d\n", arr[start], arr[stop]);
-
   int leftSize = middle - start;
   int rightSize = stop - middle;
 
@@ -164,12 +162,12 @@ void merge (int * arr, int start, int middle, int stop){
     k++;
   }
 
-  for (int y = 0; y < start - stop; y++){
+  for (int y = 0; y < stop - start; y++){
     printf("%d\t", arr[y]);
   }
   printf("\n");
 
-  for (int y = 0; y < start - stop; y++){
+  for (int y = 0; y < stop - start; y++){
     printf("%d\t", newList[y]);
   }
   printf("\n");
