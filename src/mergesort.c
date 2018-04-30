@@ -122,9 +122,8 @@ void *mergesort_setup (void *arguments){
 }
 
 void merge (int * arr, int start, int middle, int stop){
-  int newList[stop - start];
-
-  printf("%d, %d\n", start, stop);
+  int length = stop - start;
+  int newList[length];
 
   int leftSize = middle - start;
   int rightSize = stop - middle;
@@ -157,18 +156,18 @@ void merge (int * arr, int start, int middle, int stop){
     k++;
   }
 
-  for (int y = start; y < stop - start; y++){
+  for (int y = start; y < length; y++){
     printf("%d\t", arr[y]);
   }
   printf("\n");
 
-  for (int y = 0; y < stop - start; y++){
+  for (int y = 0; y < length; y++){
     printf("%d\t", newList[y]);
   }
   printf("\n");
 
   // Swap the arrays
-  for (int x = 0; x < stop - start; x++){
+  for (int x = 0; x < length; x++){
     arr[start+x] = newList[x];
   }
 }
