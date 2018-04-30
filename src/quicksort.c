@@ -1,5 +1,6 @@
 
 # include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <semaphore.h>
 # include <pthread.h>
@@ -66,13 +67,15 @@ void quicksort(int *arr, int threads, int size){
 
   printf ("Thread Created with tid %d\n", pthreads[0]);
 
+  sleep(5);
+
   pthread_join(pthreads[0], NULL);
 }
 
 void *quicksort_setup (void *arguments){
-  struct Args args = *((struct Args *) arguments);
   printf("Started\n");
   fflush(stdout);
+  struct Args args = *((struct Args *) arguments);
 
   if (args.start < (args.stop - 1)){
     int pivot = partition(args.arr, args.start, args.stop);
