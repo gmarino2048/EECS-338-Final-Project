@@ -24,18 +24,23 @@ struct Args {
   int size;
 };
 
-void bubbleSort(int *arr, int threads, int size);
+void bubblesort(int *arr, int threads, int size);
 void *bubble (void *args);
-void swap(int i, int j);
+void swap(int *arr, int i, int j);
 
-int main () {
+int main() {
+  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
 
-  return 0;
+  bubblesort(unsorted, 3, 10);
+
+  for (int i = 0; i < 10; i++){
+    printf("%d\t", unsorted[i]);
+  }
 }
 
 // A function to implement bubble sort
 // This method is not yet complete
-void bubbleSort(int *arr, int threads, int size){
+void bubblesort(int *arr, int threads, int size){
    // Calculate out the number of bubbles to use
    int maxThreads = (size - 1) / 2;
 
@@ -173,9 +178,7 @@ void *bubble (void *arguments){
 
 // Swaps the two elements at positions i and j in the array
 void swap (int *arr,int i, int j) {
-  if (i < j && i >= 0 && j<size){
-    int temp = arr[j];
-    arr[j] = arr[i];
-    arr[i] = temp;
-  }
+  int temp = arr[j];
+  arr[j] = arr[i];
+  arr[i] = temp;
 }
