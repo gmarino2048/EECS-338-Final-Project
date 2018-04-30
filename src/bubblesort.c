@@ -98,16 +98,6 @@ void bubblesort(int *arr, int threads, int size){
    while (thisStop == 0){
      int haveCompleted = 0;
 
-     sem_wait(&scmutex);
-     completed = 0;
-     sem_post(&scmutex);
-
-     printf ("Resetting bubbles\n");
-
-     sem_wait(&srmutex);
-     reset = !reset;
-     sem_post(&srmutex);
-
      // Wait for all children to complete
      while (haveCompleted < actualThreads){
        sem_wait(&scmutex);
@@ -118,6 +108,20 @@ void bubblesort(int *arr, int threads, int size){
        printf("%d \n", stop);
        sem_post(&srmutex);
      }
+
+     sem_wait(&scmutex);
+     completed = 0;
+     sem_post(&scmutex);
+
+     printf ("Resetting bubbles\n");
+
+     sem_wait(&srmutex);
+     reset = !reset;
+     sem_post(&srmutex);
+
+     sem_wait(&srmutex);
+     int thisStop = stop;
+     sem_post(&srmutex);
    }
 
    for (int i = 0; i < actualThreads; i++) {
