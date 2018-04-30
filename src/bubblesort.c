@@ -99,8 +99,10 @@ void bubblesort(int *arr, int threads, int size){
        sem_wait(&scmutex);
        haveCompleted = completed;
        sem_post(&scmutex);
+       printf("%d, %d\n", haveCompleted, actualThreads);
      }
 
+     printf ("Resetting bubbles\n");
      sem_wait(&srmutex);
      reset = !reset;
      sem_post(&srmutex);
@@ -132,6 +134,7 @@ void *bubble (void *arguments){
     else {
       streak ++;
     }
+    printf("Finished swapping. Streak is: %d\n", streak);
 
     // Increment or wrap around
     if (args.position < args.size - 2){
@@ -140,6 +143,7 @@ void *bubble (void *arguments){
     else {
       args.position = 0;
     }
+    printf("Finished incrementing. Current value is: %d", args.position);
 
     // Check the streak
     if (streak == args.size){
