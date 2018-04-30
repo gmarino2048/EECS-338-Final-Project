@@ -66,7 +66,7 @@ void quicksort(int *arr, int threads, int size){
   }
 
   printf ("Thread Created with tid %ld\n", pthreads[0]);
-  
+
   pthread_join(pthreads[0], NULL);
 }
 
@@ -90,7 +90,7 @@ void *quicksort_setup (void *arguments){
       pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksort_setup, &right);
 
       struct Args left = {args.arr, args.start, pivot};
-      *quicksort_setup(&left);
+      quicksort_setup(&left);
 
       pthread_join(pthreads[tempCount], NULL);
 
@@ -100,10 +100,10 @@ void *quicksort_setup (void *arguments){
       sem_post(&mutex);
 
       struct Args left = {args.arr, args.start, pivot};
-      *quicksort_setup(&left);
+      quicksort_setup(&left);
 
       struct Args right = {args.arr, pivot, args.stop};
-      *quicksort_setup(&right);
+      quicksort_setup(&right);
     }
   }
   return 0;
