@@ -94,10 +94,10 @@ void *mergesort_setup (void *arguments){
     else {
       sem_post(&mutex);
 
-      struct Args left = {args.arr, args.start, pivot};
+      struct Args left = {args.arr, args.start, split};
       mergesort_setup(&left);
 
-      struct Args right = {args.arr, pivot, args.stop};
+      struct Args right = {args.arr, split, args.stop};
       mergesort_setup(&right);
 
       merge(args.arr, args.start, split, args.stop);
