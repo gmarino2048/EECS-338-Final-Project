@@ -49,7 +49,7 @@ void quicksort(int *arr, int threads, int size){
   attributes = tempAttributes;
 
   if (sem_init(&mutex, 1, 1) < 0){
-    printf ("Could not initialize semaphore", stderr);
+    printf ("Could not initialize semaphore\n", stderr);
     exit(-1);
   }
 
@@ -66,6 +66,7 @@ void quicksort(int *arr, int threads, int size){
 
 void *quicksort_setup (void *arguments){
   struct Args args = *((struct Args *) arguments);
+  printf("Started\n");
 
   if (args.start < (args.stop - 1)){
     int pivot = partition(args.arr, args.start, args.stop);
@@ -84,6 +85,8 @@ void *quicksort_setup (void *arguments){
       *quicksort_setup((void *)&left);
 
       pthread_join(&pthreads[tempCount], NULL);
+
+      printf("Done with layer\n");
     }
     else {
       sem_post(&mutex);
