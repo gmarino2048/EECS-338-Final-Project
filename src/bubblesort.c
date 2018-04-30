@@ -186,7 +186,7 @@ void *bubble (void *arguments){
     sem_post(&scmutex);
 
     // Wait for wait to not equal currentVal
-    while (wait == currentVal){
+    while (wait == currentVal && thisStop != 1){
       sem_wait(&srmutex);
       wait = reset;
       sem_post(&srmutex);
