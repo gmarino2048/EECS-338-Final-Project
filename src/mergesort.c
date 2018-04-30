@@ -69,6 +69,8 @@ void mergesort(int *arr, int threads, int size){
 
 void *mergesort_setup (void *arguments){
 
+  printf("Running mergsort_setup\n");
+
   struct Args args = *((struct Args *) arguments);
 
   if (args.start < (args.stop - 1)){
