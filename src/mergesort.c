@@ -16,14 +16,16 @@ int MAX_THREADS;
 pthread_t *pthreads;
 pthread_attr_t *attributes;
 
+sem_t mutex;
+
 struct Args{
   int *arr;
   int start;
   int stop;
-}
+};
 
 void mergesort(int *arr, int threads, int size);
-void mergesort_setup(void *arguments);
+void *mergesort_setup(void *arguments);
 void merge(int *arr, int start, int middle, int stop);
 
 int main(){
@@ -38,7 +40,7 @@ int main(){
 
 void mergesort(int *arr, int threads, int size){
   if(threads == 0){
-    printf("Cannot run on 0 threads\n", stderr);
+    printf("Cannot run on 0 threads\n");
     exit(-1);
   }
 
@@ -52,7 +54,7 @@ void mergesort(int *arr, int threads, int size){
   attributes = tempAttributes;
 
   if(sem_init(&mutex, 1, 1) < 0){
-    printf("Could not initialize semaphore", stderr);
+    printf("Could not initialize semaphore");
     exit(-1);
   }
 
@@ -62,7 +64,7 @@ void mergesort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
+  pthread_create(&pthreads[0], &attributes[0], mergesort_setup, (void *) &initial);
 }
 
 void *mergesort_setup (void *arguments){
