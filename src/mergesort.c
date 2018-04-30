@@ -167,7 +167,4 @@ void merge (int * arr, int start, int middle, int stop){
   for (int x = 0; x < stop - start; x++){
     arr[start+x] = newList[x];
   }
-
-  // Free up the space
-  free(newList);
 }
