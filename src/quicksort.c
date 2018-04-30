@@ -35,7 +35,7 @@ int main() {
 
 void quicksort(int *arr, int threads, int size){
   if (threads == 0){
-    printf("Cannot run on 0 threads\n", stderr);
+    printf("Cannot run on 0 threads\n");
     exit(-1);
   }
 
@@ -49,7 +49,7 @@ void quicksort(int *arr, int threads, int size){
   attributes = tempAttributes;
 
   if (sem_init(&mutex, 1, 1) < 0){
-    printf ("Could not initialize semaphore\n", stderr);
+    printf ("Could not initialize semaphore\n");
     exit(-1);
   }
 
