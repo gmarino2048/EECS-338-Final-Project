@@ -129,14 +129,11 @@ void merge (int * arr, int start, int middle, int stop){
   int leftSize = middle - start;
   int rightSize = stop - middle;
 
-  int i = 0;
-  int j = 0;
+  int i = start;
+  int j = middle;
   int k = 0;
 
   while (i < leftSize && j < rightSize){
-    int leftTemp = start + i;
-    int rightTemp = middle + j;
-
     if (arr[leftTemp] < arr[rightTemp]){
       newList[k] = arr[leftTemp];
       k++;
@@ -150,13 +147,11 @@ void merge (int * arr, int start, int middle, int stop){
   }
 
   while (i < leftSize){
-    int leftTemp = start + i;
     newList[k] = arr[leftTemp];
     i++;
     k++;
   }
   while (j < rightSize){
-    int rightTemp = start + i;
     newList[k] = arr[rightTemp];
     j++;
     k++;
