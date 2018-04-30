@@ -67,6 +67,7 @@ void quicksort(int *arr, int threads, int size){
 void *quicksort_setup (void *arguments){
   struct Args args = *((struct Args *) arguments);
   printf("Started\n");
+  fflush(stdout);
 
   if (args.start < (args.stop - 1)){
     int pivot = partition(args.arr, args.start, args.stop);
