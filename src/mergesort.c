@@ -1,4 +1,4 @@
-/* Noah Houpt and Guy Marino EECS 338 Final Project
+start/* Noah Houpt and Guy Marino EECS 338 Final Project
 QuickSort implementation for testing various lengths of array
 inputs and number of pthreads in use. Source of merge sort
 algorithm is from mycodeschool's Github at URL:
@@ -121,53 +121,45 @@ void *mergesort_setup (void *arguments){
   return 0;
 }
 
-void merge (int * arr, int start, int middle, int stop){
-  int length = stop - start;
-  int newList[length];
+void merge(int *arr, int start, int middle, int stop)
+{
+    int i, j, k;
+    int left = middle - start + 1;
+    int right =  stop - middle;
 
-  int leftSize = middle - start;
-  int rightSize = stop - middle;
+    int L[left], R[right];
 
-  int i = start;
-  int j = middle;
-  int k = 0;
+    for (i = 0; i < left; i++)
+        L[i] = arr[start + i];
+    for (j = 0; j < right; j++)
+        R[j] = arr[middle + 1+ j];
 
-  while (i < leftSize && j < rightSize){
-    if (arr[i] < arr[j]){
-      newList[k] = arr[i];
-      k++;
-      i++;
+
+    i = 0;
+    j = 0;
+    k = start;
+    while (i < left && j < right){
+        if (L[i] <= R[j]){
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
     }
-    else {
-      newList[k] = arr[j];
-      k++;
-      j++;
+
+    while (i < left){
+        arr[k] = L[i];
+        i++;
+        k++;
     }
-  }
 
-  while (i < leftSize){
-    newList[k] = arr[i];
-    i++;
-    k++;
-  }
-  while (j < rightSize){
-    newList[k] = arr[j];
-    j++;
-    k++;
-  }
-
-  for (int y = start; y < length; y++){
-    printf("%d\t", arr[y]);
-  }
-  printf("\n");
-
-  for (int y = 0; y < length; y++){
-    printf("%d\t", newList[y]);
-  }
-  printf("\n");
-
-  // Swap the arrays
-  for (int x = 0; x < length; x++){
-    arr[start+x] = newList[x];
-  }
+    while (j < right)
+    {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
 }
