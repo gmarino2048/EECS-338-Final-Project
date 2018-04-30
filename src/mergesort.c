@@ -39,7 +39,7 @@ int main(){
 }
 
 void mergesort(int *arr, int threads, int size){
-  if(threads == 0){
+  if (threads == 0){
     printf("Cannot run on 0 threads\n");
     exit(-1);
   }
@@ -50,11 +50,11 @@ void mergesort(int *arr, int threads, int size){
   pthread_t tempThreads[threads];
   pthread_attr_t tempAttributes[threads];
 
-  pthreads = tempThreads;
-  attributes = tempAttributes;
+  pthreads = malloc(sizeof(tempThreads));
+  attributes = malloc(sizeof(tempAttributes));
 
-  if(sem_init(&mutex, 1, 1) < 0){
-    printf("Could not initialize semaphore");
+  if (sem_init(&mutex, 0, 1) < 0){
+    printf ("Could not initialize semaphore\n");
     exit(-1);
   }
 
@@ -64,7 +64,17 @@ void mergesort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  pthread_create(&pthreads[0], &attributes[0], mergesort_setup, (void *) &initial);
+  if (pthread_create(&pthreads[0], &attributes[0], mergesort_setup, (void *) &initial) < 0){
+    printf("Could not create thread\n");
+    exit(-1);
+  }
+
+  printf ("Thread Created with tid %ld\n", pthreads[0]);
+
+  pthread_join(pthreads[0], NULL);
+
+  free (pthreads);
+  free (attributes);
 }
 
 void *mergesort_setup (void *arguments){
