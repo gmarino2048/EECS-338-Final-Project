@@ -6,77 +6,67 @@ https://gist.github.com/mycodeschool/9678029 */
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<semaphore.h>
+#include<pthread.h>
+#include<unistd.h>
 
-//Global Array containing
-int A[] = {6,2,3,1,9,10,15,13,12,17};
+int threadCount;
+int MAX_THREADS;
 
-// Function to Merge Arrays L and R into A.
-// lefCount = number of elements in L
-// rightCount = number of elements in R.
-// This function needs to be modified to work in a single list but I don't have time rn
-void merge(int *A,int *L,int leftCount,int *R,int rightCount) {
-	int i,j,k;
+pthread_t *pthreads;
+pthread_attr_t *attributes;
 
-	// i - to mark the index of left aubarray (L)
-	// j - to mark the index of right sub-raay (R)
-	// k - to mark the index of merged subarray (A)
-	i = 0; j = 0; k =0;
-
-	while(i<leftCount && j< rightCount) {
-		if(L[i]  < R[j]) A[k++] = L[i++];
-		else A[k++] = R[j++];
-	}
-	while(i < leftCount) A[k++] = L[i++];
-	while(j < rightCount) A[k++] = R[j++];
+struct Args{
+  int *arr;
+  int start;
+  int stop;
 }
 
-// Recursive function to sort an array of integers.
-// Needs to be modified to work in the same array
-int[] mergesort(int A,int n) {
-	int mid,i, *L, *R;
-	if(n < 2) return; // base condition. If the array has less than two element, do nothing.
+void mergesort(int *arr, int threads, int size);
+void mergesort_setup(void *arguments);
+void merge(int *A, int *L, int leftCount, int *R, int rightCount);
 
-	mid = n/2;  // find the mid index.
+int main(){
+  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
 
-	// create left and right subarrays
-	// mid elements (from index 0 till mid-1) should be part of left sub-array
-	// and (n-mid) elements (from mid to n-1) will be part of right sub-array
-	L = (int*)malloc(mid*sizeof(int));
-	R = (int*)malloc((n- mid)*sizeof(int));
+  mergesort(unsorted, 3, 10);
 
-	for(i = 0;i<mid;i++) L[i] = A[i]; // creating left subarray
-	for(i = mid;i<n;i++) R[i-mid] = A[i]; // creating right subarray
-
-	MergeSort(L,mid);  // sorting the left subarray
-	MergeSort(R,n-mid);  // sorting the right subarray
-	Merge(A,L,mid,R,n-mid);  // Merging L and R into A as sorted list.
-        free(L);
-        free(R);
+  for(int i = 0; i < 10; i++){
+    printf("%d\t", unsorted[i]);
+  }
 }
 
-// This function is not yet complete and needs to be implemented
-void *mergesort_helper(void *args){
-
-}
-
-int main(int argc, char *argv[]) {
-	/* Code to test the MergeSort function. */
-
-  int maxThreads = atoi(argv[1]);
-	int i,numberOfElements;
-
-  int index[maxThreads];
-
-	numberOfElements = sizeof(A)/sizeof(A[0]);
-
-  for(i = 0; i < maxThreads; i++){
-
+void mergesort(int *arr, int threads, int size){
+  if(threads == 0){
+    printf("Cannot run on 0 threads\n", stderr);
+    exit(-1);
   }
 
-	// Calling merge sort to sort the array.
-	MergeSort(A,numberOfElements);
+  threadCount = 0;
+  MAX_THREADS = threads;
 
-	//printing all elements in the array once its sorted.
-	for(i = 0;i < numberOfElements;i++) printf("%d ",A[i]);
-	return 0;
+  pthread_t tempThreads[threads];
+  pthread_attr_t tempAttributes[threads];
+
+  pthreads = tempThreads;
+  attributes = tempAttributes;
+
+  if(sem_init(&mutex, 1, 1) < 0){
+    printf("Could not initialize semaphore", stderr);
+    exit(-1);
+  }
+
+  struct Args initial;
+
+  initial.arr = arr;
+  initial.start = 0;
+  initial.stop = size;
+
+  pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
+}
+
+void *quicksort_setup(void *arguments){
+  struct Args args = *((struct Args *) arguments);
+
+
 }
