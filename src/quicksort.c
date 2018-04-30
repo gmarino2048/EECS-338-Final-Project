@@ -1,36 +1,48 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <semaphore.h>
 # include <pthread.h>
 
-int threadCount
+int threadCount;
 int MAX_THREADS;
 
 pthread_t *pthreads;
-pthread_attr *attributes;
+pthread_attr_t *attributes;
 
 sem_t mutex;
 
 struct Args {
-  int arr;
+  int *arr;
   int start;
   int stop;
 };
 
-void *quicksort_setup(void *args);
+void quicksort(int *arr, int threads, int size);
+void *quicksort_setup(void *arguments);
 int partition(int arr[], int start, int stop);
 void swap(int arr[], int index1, int index2);
 
-int *quicksort(int *arr, int threads, int size){
-  if (maxThreads == 0){
+int main() {
+  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
+
+  quicksort(unsorted, 3, 10);
+
+  for (int i = 0; i < 10; i++){
+    printf("%d\t", unsorted[i]);
+  }
+}
+
+void quicksort(int *arr, int threads, int size){
+  if (threads == 0){
     printf("Cannot run on 0 threads\n", stderr);
     exit(-1);
   }
   threadCount = 0;
-  MAX_THREADS = maxThreads;
+  MAX_THREADS = threads;
 
-  pthread_t tempThreads[maxThreads];
-  pthread_attr tempAttributes[maxThreads];
+  pthread_t tempThreads[threads];
+  pthread_attr_t tempAttributes[threads];
 
   pthreads = tempThreads;
   attributes = tempAttributes;
@@ -46,35 +58,35 @@ int *quicksort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  pthread_create(pthreads[0], attributes[0], quicksort_setup, (void *)initial);
+  pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
 }
 
-void *quicksort_setup (void *args){
-  struct Args arguments = (struct Args *) args;
+void *quicksort_setup (void *arguments){
+  struct Args args = *((struct Args *) arguments);
 
   if (args.start < (args.stop - 1)){
     int pivot = partition(args.arr, args.start, args.stop);
 
     sem_wait(&mutex);
-    if (threadCount < (maxThreads - 1)){
+    if (threadCount < (MAX_THREADS - 1)){
       threadCount++;
 
       struct Args right = {args.arr, pivot, args.stop};
-      pthread_create(pthreads[threadCount])
+      pthread_create(&pthreads[threadCount], &attributes[threadCount], quicksort_setup, (void *) &right);
 
       sem_post(&mutex);
 
       struct Args left = {args.arr, args.start, pivot};
-      *quicksort_setup((void *)left);
+      *quicksort_setup((void *)&left);
     }
     else {
       sem_post(&mutex);
 
       struct Args left = {args.arr, args.start, pivot};
-      *quicksort_setup((void *)left);
+      *quicksort_setup((void *)&left);
 
       struct Args right = {args.arr, pivot, args.stop};
-      *quicksort_setup((void *)right);
+      *quicksort_setup((void *)&right);
     }
   }
 }
