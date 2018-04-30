@@ -83,6 +83,7 @@ void bubblesort(int *arr, int threads, int size){
    // Instantiate the pthreads
    for (int i = 0; i < actualThreads; i++) {
      struct Args temp = {arr, i * 2, size};
+     printf("%d\n", temp.position);
      pthread_create(&pthreads[i], &attributes[i], bubble, (void *) &temp);
    }
 
@@ -107,6 +108,7 @@ void bubblesort(int *arr, int threads, int size){
      sem_post(&scmutex);
 
      printf ("Resetting bubbles\n");
+
      sem_wait(&srmutex);
      reset = !reset;
      sem_post(&srmutex);
