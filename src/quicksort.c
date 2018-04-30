@@ -67,7 +67,9 @@ void quicksort(int *arr, int threads, int size){
 
   printf ("Thread Created with tid %ld\n", pthreads[0]);
 
+  sem_wait(&mutex);
   pthread_join(pthreads[0], NULL);
+  sem_post(&mutex);
 }
 
 void *quicksort_setup (void *arguments){
