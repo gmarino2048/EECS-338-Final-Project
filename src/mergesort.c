@@ -134,30 +134,30 @@ void merge (int * arr, int start, int middle, int stop){
   int k = 0;
 
   while (i < leftSize && j < rightSize){
-    if (arr[leftTemp] < arr[rightTemp]){
-      newList[k] = arr[leftTemp];
+    if (arr[i] < arr[j]){
+      newList[k] = arr[i];
       k++;
       i++;
     }
     else {
-      newList[k] = arr[rightTemp];
+      newList[k] = arr[j];
       k++;
       j++;
     }
   }
 
   while (i < leftSize){
-    newList[k] = arr[leftTemp];
+    newList[k] = arr[i];
     i++;
     k++;
   }
   while (j < rightSize){
-    newList[k] = arr[rightTemp];
+    newList[k] = arr[j];
     j++;
     k++;
   }
 
-  for (int y = 0; y < stop - start; y++){
+  for (int y = start; y < stop - start; y++){
     printf("%d\t", arr[y]);
   }
   printf("\n");
