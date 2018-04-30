@@ -46,8 +46,6 @@ void quicksort(int *arr, int threads, int size){
   pthread_t tempThreads[threads];
   pthread_attr_t tempAttributes[threads];
 
-
-
   pthreads = malloc(sizeof(tempThreads));
   attributes = malloc(sizeof(tempAttributes));
 
@@ -111,7 +109,7 @@ void *quicksort_setup (void *arguments){
       quicksort_setup(&right);
     }
   }
-  pthread_exit(NULL);
+  return 0;
 }
 
 int partition (int *arr, int start, int stop){
@@ -131,6 +129,11 @@ int partition (int *arr, int start, int stop){
  }
 
  swap(arr, i + 1, high);
+
+ for (int i = 0; i < 10; i++){
+   printf("%d\t", unsorted[i]);
+ }
+ printf("\n");
  return i + 1;
 }
 
