@@ -113,6 +113,10 @@ void bubblesort(int *arr, int threads, int size){
        sem_wait(&scmutex);
        haveCompleted = completed;
        sem_post(&scmutex);
+
+       sem_wait(&srmutex);
+       printf("%d \n", stop);
+       sem_post(&srmutex);
      }
    }
 
