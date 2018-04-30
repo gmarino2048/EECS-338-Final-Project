@@ -131,7 +131,7 @@ int partition (int *arr, int start, int stop){
  swap(arr, i + 1, high);
 
  for (int i = 0; i < 10; i++){
-   printf("%d\t", unsorted[i]);
+   printf("%d\t", arr[i]);
  }
  printf("\n");
  return i + 1;
