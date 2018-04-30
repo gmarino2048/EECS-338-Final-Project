@@ -159,6 +159,11 @@ void merge (int * arr, int start, int middle, int stop){
   }
 
   for (int y = 0; y < start - stop; y++){
+    printf("%d\t", arr[y]);
+  }
+  printf("\n");
+
+  for (int y = 0; y < start - stop; y++){
     printf("%d\t", newList[y]);
   }
   printf("\n");
