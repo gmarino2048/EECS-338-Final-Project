@@ -84,7 +84,10 @@ void bubblesort(int *arr, int threads, int size){
 
    // Instantiate the pthreads
    for (int i = 0; i < actualThreads; i++) {
-     argsList[i] = {arr, i * 2, size};
+     struct Args argsList[i];
+     argsList[i].arr = arr;
+     argsList[i].position = i*2;
+     argsList[i].size = size;
      pthread_create(&pthreads[i], &attributes[i], bubble, (void *) &argsList[i]);
    }
 
