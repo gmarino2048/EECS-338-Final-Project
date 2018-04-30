@@ -133,7 +133,7 @@ void merge (int * arr, int start, int middle, int stop){
   int j = 0;
   int k = 0;
 
-  while (i < leftSize && j < leftSize){
+  while (i < leftSize && j < rightSize){
     int leftTemp = start + i;
     int rightTemp = middle + j;
 
