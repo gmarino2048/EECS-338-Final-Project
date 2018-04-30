@@ -79,12 +79,10 @@ void mergesort(int *arr, int threads, int size){
 
 void *mergesort_setup (void *arguments){
 
-  printf("Running mergsort_setup\n");
-
   struct Args args = *((struct Args *) arguments);
 
   if (args.start < (args.stop - 1)){
-    int split = (args.stop + args.stop) / 2;
+    int split = (args.start + args.stop) / 2;
 
     sem_wait(&mutex);
     if (threadCount < (MAX_THREADS - 1)){
