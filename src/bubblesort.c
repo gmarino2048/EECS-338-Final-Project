@@ -167,6 +167,7 @@ void *bubble (void *arguments){
       sem_post(&srmutex);
     }
   }
+  pthread_exit(NULL);
 }
 
 
