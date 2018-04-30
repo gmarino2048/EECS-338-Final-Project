@@ -46,8 +46,10 @@ void quicksort(int *arr, int threads, int size){
   pthread_t tempThreads[threads];
   pthread_attr_t tempAttributes[threads];
 
-  pthreads = tempThreads;
-  attributes = tempAttributes;
+
+
+  pthreads = malloc(sizeof(tempThreads));
+  attributes = malloc(sizeof(tempAttributes));
 
   if (sem_init(&mutex, 1, 1) < 0){
     printf ("Could not initialize semaphore\n");
@@ -71,6 +73,7 @@ void quicksort(int *arr, int threads, int size){
   pthread_join(pthreads[0], NULL);
   sem_post(&mutex);
 }
+
 
 void *quicksort_setup (void *arguments){
   printf("Started\n");
@@ -108,7 +111,7 @@ void *quicksort_setup (void *arguments){
       quicksort_setup(&right);
     }
   }
-  return 0;
+  pthread_exit(NULL);
 }
 
 int partition (int *arr, int start, int stop){
