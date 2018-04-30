@@ -24,7 +24,7 @@ struct Args{
 
 void mergesort(int *arr, int threads, int size);
 void mergesort_setup(void *arguments);
-void merge(int *A, int *L, int leftCount, int *R, int rightCount);
+void merge(int *arr, int start, int middle, int stop);
 
 int main(){
   int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
