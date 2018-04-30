@@ -38,6 +38,7 @@ void quicksort(int *arr, int threads, int size){
     printf("Cannot run on 0 threads\n", stderr);
     exit(-1);
   }
+
   threadCount = 0;
   MAX_THREADS = threads;
 
@@ -112,7 +113,11 @@ int partition (int *arr, int start, int stop){
 }
 
 void swap (int *arr, int index1, int index2){
- int temp = arr[index1];
- arr[index1] = arr[index2];
- arr[index2] = temp;
+  printf ("%d\t%d\n", arr[index1], arr[index2]);
+
+  int temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
+
+  printf ("%d\t%d\n", arr[index1], arr[index2]);
 }
