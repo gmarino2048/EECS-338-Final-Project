@@ -86,6 +86,7 @@ void *quicksort_setup (void *arguments){
     if (threadCount < (MAX_THREADS - 1)){
       threadCount++;
       int tempCount = threadCount;
+      printf("Entered if statement\n");
 
       sem_post(&mutex);
 
