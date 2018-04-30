@@ -99,7 +99,7 @@ void bubblesort(int *arr, int threads, int size){
      int haveCompleted = 0;
 
      // Wait for all children to complete
-     while (haveCompleted < actualThreads){
+     while (haveCompleted < actualThreads && thisStop != 1){
        sem_wait(&scmutex);
        haveCompleted = completed;
        sem_post(&scmutex);
