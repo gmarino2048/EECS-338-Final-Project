@@ -102,6 +102,7 @@ void *mergesort_setup (void *arguments){
 
       pthread_join(pthreads[tempCount], NULL);
 
+      printf("Running Merge\n");
       merge(args.arr, args.start, split, args.stop);
     }
     else {
@@ -113,6 +114,7 @@ void *mergesort_setup (void *arguments){
       struct Args right = {args.arr, split, args.stop};
       mergesort_setup(&right);
 
+      printf("Running Merge\n");
       merge(args.arr, args.start, split, args.stop);
     }
   }
