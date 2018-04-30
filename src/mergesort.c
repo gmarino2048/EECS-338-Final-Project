@@ -147,9 +147,14 @@ void merge (int * arr, int start, int middle, int stop){
     k++;
   }
 
+  for (int y = 0; y < start - stop; y++){
+    printf("%d\t", newList[y]);
+  }
+  printf("\n");
+
   // Swap the arrays
   for (int x = 0; x < stop - start; x++){
-    arr[x+start] = newList[x];
+    arr[start+x] = newList[x];
   }
 
   // Free up the space
