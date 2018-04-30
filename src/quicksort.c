@@ -59,9 +59,11 @@ void quicksort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
+  pthread_create(pthreads[0], attributes[0], quicksort_setup, (void *) &initial);
 
-  pthread_join(&pthreads[0], NULL);
+  printf ("Thread Created\n");
+  
+  pthread_join(pthreads[0], NULL);
 }
 
 void *quicksort_setup (void *arguments){
@@ -85,7 +87,7 @@ void *quicksort_setup (void *arguments){
       struct Args left = {args.arr, args.start, pivot};
       *quicksort_setup((void *)&left);
 
-      pthread_join(&pthreads[tempCount], NULL);
+      pthread_join(pthreads[tempCount], NULL);
 
       printf("Done with layer\n");
     }
