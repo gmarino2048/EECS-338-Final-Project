@@ -120,7 +120,7 @@ void *mergesort_setup (void *arguments){
 }
 
 void merge (int * arr, int start, int middle, int stop){
-  int *newList = malloc((stop - start) * sizeof(int));
+  int newList[stop - start];
 
   int leftSize = middle - start;
   int rightSize = stop - middle;
