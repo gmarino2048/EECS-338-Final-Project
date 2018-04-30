@@ -91,9 +91,9 @@ void bubblesort(int *arr, int threads, int size){
    }
 
    // Bubble Controller
-   sem_wait(&srmutex);
+   sem_wait(&stopmutex);
    int thisStop = stop;
-   sem_post(&srmutex);
+   sem_post(&stopmutex);
 
    while (thisStop == 0){
      int haveCompleted = 0;
@@ -104,9 +104,9 @@ void bubblesort(int *arr, int threads, int size){
        haveCompleted = completed;
        sem_post(&scmutex);
 
-       sem_wait(&srmutex);
+       sem_wait(&stopmutex);
        thisStop = stop;
-       sem_post(&srmutex);
+       sem_post(&stopmutex);
      }
 
      sem_wait(&scmutex);
