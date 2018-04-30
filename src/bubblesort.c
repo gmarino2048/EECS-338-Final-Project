@@ -103,7 +103,6 @@ void bubblesort(int *arr, int threads, int size){
        sem_wait(&scmutex);
        haveCompleted = completed;
        sem_post(&scmutex);
-       printf("%d, %d\n", haveCompleted, actualThreads);
      }
 
      sem_wait(&scmutex);
@@ -155,7 +154,7 @@ void *bubble (void *arguments){
     printf("Finished incrementing. Current position is: %d\n", args.position);
 
     // Check the streak
-    if (streak == args.size){
+    if (streak == args.size - 1){
       sem_wait(&stopmutex);
       stop = 1;
       sem_post(&stopmutex);
