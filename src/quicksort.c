@@ -83,6 +83,7 @@ void *quicksort_setup (void *arguments){
     int pivot = partition(args.arr, args.start, args.stop);
 
     sem_wait(&mutex);
+    printf("Entered sem section\n");
     if (threadCount < (MAX_THREADS - 1)){
       threadCount++;
       int tempCount = threadCount;
