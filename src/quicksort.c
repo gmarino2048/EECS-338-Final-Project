@@ -59,7 +59,7 @@ void quicksort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  pthread_create(pthreads[0], attributes[0], quicksort_setup, (void *) &initial);
+  pthread_create(pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
 
   printf ("Thread Created\n");
   
