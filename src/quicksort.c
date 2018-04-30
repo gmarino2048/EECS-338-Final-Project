@@ -61,7 +61,7 @@ void quicksort(int *arr, int threads, int size){
 
   pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
 
-  printf ("Thread Created\n");
+  printf ("Thread Created with tid %d\n", pthreads[0]);
 
   pthread_join(pthreads[0], NULL);
 }
