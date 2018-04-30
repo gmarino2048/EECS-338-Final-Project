@@ -123,7 +123,7 @@ int partition (int *arr, int start, int stop){
 
  for (int j = low; j < high; j++){
    if (arr[j] < pivot){
-     i++;
+     i = i + 1;
      swap(arr, i, j);
    }
  }
