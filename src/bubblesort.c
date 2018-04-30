@@ -1,4 +1,5 @@
 # include <stdio.h>
+# include <stdlib.h>
 # include <semaphore.h>
 # include <pthread.h>
 
@@ -170,7 +171,7 @@ void *bubble (void *arguments){
 
 
 // Swaps the two elements at positions i and j in the array
-void swap (int arr[],int i, int j) {
+void swap (int *arr,int i, int j) {
   if (i < j && i >= 0 && j<size){
     int temp = arr[j];
     arr[j] = arr[i];
