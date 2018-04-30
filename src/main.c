@@ -29,22 +29,46 @@ quicksort(int[] array, int threadCount);
 mergesort(int[] array, int threadCount);
 bubblesort(int[] array, int threadCount);*/
 
+#include <stdlib.h>
+#include<stdio.h>
+#include<unistd.h>
+#include<time.h>
+#include<limits.h>
+
 //Global variables containing array that will be modified and overwritten throughout the testing
 int array[N];
+int size;
 
-void RandomArray(int lowerBound, int upperBound, int arraySize){
+struct data {
+  int *arr;
+  int start;
+  int stop;
+};
+
+void RandomArray(int arraySize);
+int validate (int array[], int size);
+int writeout (struct data arguments);
+
+void RandomArray(int arraySize){
 	int i = 0;
 	srand(time(0));
-	for(i = 0; i < arraySize; i++){
-		int number = (rand() % (upperBound - lowerBound + 1)) + lowerBound;
+	size = arraySize;
+	printf("%d\n",size);
+	for(i = 0; i < size; i++){
+		int number = (rand() % INT_MAX);
+		//printf("%d", number);
 		array[i] = number;
 	}
 }
 
 // The main method has yet to be implemented because the other methods are not yet complete
 int main(){
-	struct timeval start_time, stop_time, elapsed_time;
-
+	//struct timeval start_time, stop_time, elapsed_time;
+	RandomArray(5);
+	int i;
+	for(i = 0; i < size; i++){
+		printf("%d,", array[i]);
+	}
 }
 
 
