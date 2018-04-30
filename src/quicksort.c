@@ -60,6 +60,8 @@ void quicksort(int *arr, int threads, int size){
   initial.stop = size;
 
   pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
+
+  pthread_join(&pthreads[0], NULL);
 }
 
 void *quicksort_setup (void *arguments){
@@ -71,14 +73,17 @@ void *quicksort_setup (void *arguments){
     sem_wait(&mutex);
     if (threadCount < (MAX_THREADS - 1)){
       threadCount++;
-
-      struct Args right = {args.arr, pivot, args.stop};
-      pthread_create(&pthreads[threadCount], &attributes[threadCount], quicksort_setup, (void *) &right);
+      int tempCount = threadCount;
 
       sem_post(&mutex);
 
+      struct Args right = {args.arr, pivot, args.stop};
+      pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksort_setup, (void *) &right);
+
       struct Args left = {args.arr, args.start, pivot};
       *quicksort_setup((void *)&left);
+
+      pthread_join(&pthreads[tempCount], NULL);
     }
     else {
       sem_post(&mutex);
