@@ -124,6 +124,8 @@ void *mergesort_setup (void *arguments){
 void merge (int * arr, int start, int middle, int stop){
   int newList[stop - start];
 
+  printf("%d, %d\n", start, stop);
+  
   int leftSize = middle - start;
   int rightSize = stop - middle;
 
