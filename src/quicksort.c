@@ -68,11 +68,13 @@ void quicksort(int *arr, int threads, int size){
   printf ("Thread Created with tid %ld\n", pthreads[0]);
 
   pthread_join(pthreads[0], NULL);
+
+  free (pthreads);
+  free (attributes);
 }
 
 
 void *quicksort_setup (void *arguments){
-  printf("Started\n");
   fflush(stdout);
 
   struct Args args = *((struct Args *) arguments);
@@ -81,12 +83,9 @@ void *quicksort_setup (void *arguments){
     int pivot = partition(args.arr, args.start, args.stop);
 
     sem_wait(&mutex);
-    printf("Entered sem section\n");
     if (threadCount < (MAX_THREADS - 1)){
       threadCount++;
       int tempCount = threadCount;
-      printf("Entered if statement\n");
-
       sem_post(&mutex);
 
       struct Args right = {args.arr, pivot, args.stop};
@@ -99,8 +98,6 @@ void *quicksort_setup (void *arguments){
       quicksort_setup(&left);
 
       pthread_join(pthreads[tempCount], NULL);
-
-      printf("Done with layer\n");
     }
     else {
       sem_post(&mutex);
@@ -132,11 +129,6 @@ int partition (int *arr, int start, int stop){
  }
 
  swap(arr, i + 1, high);
-
- for (int i = 0; i < 10; i++){
-   printf("%d\t", arr[i]);
- }
- printf("\nPartition Finished\n");
  return i + 1;
 }
 
