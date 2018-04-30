@@ -49,7 +49,7 @@ void quicksort(int *arr, int threads, int size){
   pthreads = malloc(sizeof(tempThreads));
   attributes = malloc(sizeof(tempAttributes));
 
-  if (sem_init(&mutex, 1, 1) < 0){
+  if (sem_init(&mutex, 0, 1) < 0){
     printf ("Could not initialize semaphore\n");
     exit(-1);
   }
@@ -92,7 +92,10 @@ void *quicksort_setup (void *arguments){
       sem_post(&mutex);
 
       struct Args right = {args.arr, pivot, args.stop};
-      pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksort_setup, &right);
+      if (pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksort_setup, &right) < 0){
+        printf("Could not create pthread at section %d\n", tempCount);
+        exit(-1);
+      }
 
       struct Args left = {args.arr, args.start, pivot};
       quicksort_setup(&left);
@@ -135,7 +138,7 @@ int partition (int *arr, int start, int stop){
  for (int i = 0; i < 10; i++){
    printf("%d\t", arr[i]);
  }
- printf("\n");
+ printf("\nPartition Finished\n");
  return i + 1;
 }
 
