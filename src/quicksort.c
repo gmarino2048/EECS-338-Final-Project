@@ -75,7 +75,6 @@ void quicksort(int *arr, int threads, int size){
 
 
 void *quicksort_setup (void *arguments){
-  fflush(stdout);
 
   struct Args args = *((struct Args *) arguments);
 

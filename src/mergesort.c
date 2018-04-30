@@ -65,8 +65,91 @@ void mergesort(int *arr, int threads, int size){
   pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
 }
 
-void *quicksort_setup(void *arguments){
+void *mergesort_setup (void *arguments){
+
   struct Args args = *((struct Args *) arguments);
 
+  if (args.start < (args.stop - 1)){
+    int split = (args.stop + args.stop) / 2;
 
+    sem_wait(&mutex);
+    if (threadCount < (MAX_THREADS - 1)){
+      threadCount++;
+      int tempCount = threadCount;
+      sem_post(&mutex);
+
+      struct Args right = {args.arr, split, args.stop};
+      if (pthread_create(&pthreads[tempCount], &attributes[tempCount], mergesort_setup, &right) < 0){
+        printf("Could not create pthread at section %d\n", tempCount);
+        exit(-1);
+      }
+
+      struct Args left = {args.arr, args.start, split};
+      mergesort_setup(&left);
+
+      pthread_join(pthreads[tempCount], NULL);
+
+      merge(args.arr, args.start, split, args.stop);
+    }
+    else {
+      sem_post(&mutex);
+
+      struct Args left = {args.arr, args.start, pivot};
+      mergesort_setup(&left);
+
+      struct Args right = {args.arr, pivot, args.stop};
+      mergesort_setup(&right);
+
+      merge(args.arr, args.start, split, args.stop);
+    }
+  }
+  return 0;
+}
+
+void merge (int * arr, int start, int middle, int stop){
+  int *newList = malloc((stop - start) * sizeof(int));
+
+  int leftSize = middle - start;
+  int rightSize = stop - middle;
+
+  int i = 0;
+  int j = 0;
+  int k = 0;
+
+  while (i < leftSize && j < leftSize){
+    int leftTemp = start + i;
+    int rightTemp = middle + j;
+
+    if (arr[leftTemp] < arr[rightTemp]){
+      newList[k] = arr[leftTemp];
+      k++;
+      i++;
+    }
+    else {
+      newList[k] = arr[rightTemp];
+      k++;
+      j++;
+    }
+  }
+
+  while (i < leftSize){
+    int leftTemp = start + i;
+    newList[k] = arr[i];
+    i++;
+    k++;
+  }
+  while (j < rightSize){
+    int leftTemp = start + i;
+    newList[k] = arr[j];
+    j++;
+    k++;
+  }
+
+  // Swap the arrays
+  for (int x = 0; x < stop - start; x++){
+    arr[x+start] = newList[x];
+  }
+
+  // Free up the space
+  free(newList);
 }
