@@ -80,14 +80,11 @@ void bubblesort(int *arr, int threads, int size){
    pthreads = malloc(actualThreads * sizeof(pthread_t));
    attributes = malloc(actualThreads * sizeof(pthread_attr_t));
 
-   struct Args *argsList = malloc(actualThreads * sizeof(struct Args));
+   struct Args argsList[actualThreads];
 
    // Instantiate the pthreads
    for (int i = 0; i < actualThreads; i++) {
-     struct Args argsList[i];
-     argsList[i].arr = arr;
-     argsList[i].position = i*2;
-     argsList[i].size = size;
+     argsList[i] = {arr, i * 2, size};
      pthread_create(&pthreads[i], &attributes[i], bubble, (void *) &argsList[i]);
    }
 
