@@ -20,7 +20,7 @@ struct Args {
 };
 
 void quicksort(int *arr, int threads, int size);
-void *quicksortSetup (void *arguments);
+void *quicksort_setup(void *arguments);
 int partition(int arr[], int start, int stop);
 void swap(int arr[], int index1, int index2);
 
@@ -60,19 +60,17 @@ void quicksort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  if (pthread_create(&pthreads[0], &attributes[0], quicksortSetup, (void *) &initial) < 0){
+  if (pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial) < 0){
     printf("Could not create thread\n");
     exit(-1);
   }
 
   printf ("Thread Created with tid %ld\n", pthreads[0]);
-
-  sleep(5);
-
+  
   pthread_join(pthreads[0], NULL);
 }
 
-void *quicksortSetup (void *arguments){
+void *quicksort_setup (void *arguments){
   printf("Started\n");
   fflush(stdout);
 
@@ -89,7 +87,7 @@ void *quicksortSetup (void *arguments){
       sem_post(&mutex);
 
       struct Args right = {args.arr, pivot, args.stop};
-      pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksortSetup, &right);
+      pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksort_setup, &right);
 
       struct Args left = {args.arr, args.start, pivot};
       *quicksort_setup(&left);
@@ -108,7 +106,7 @@ void *quicksortSetup (void *arguments){
       *quicksort_setup(&right);
     }
   }
-  return;
+  return 0;
 }
 
 int partition (int *arr, int start, int stop){
