@@ -95,6 +95,7 @@ void *mergesort_setup (void *arguments){
         printf("Could not create pthread at section %d\n", tempCount);
         exit(-1);
       }
+      printf("Thread Created\n");
 
       struct Args left = {args.arr, args.start, split};
       mergesort_setup(&left);
