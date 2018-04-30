@@ -59,7 +59,10 @@ void quicksort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial);
+  if (pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial) < 0){
+    printf("Could not create thread\n");
+    exit(-1);
+  }
 
   printf ("Thread Created with tid %d\n", pthreads[0]);
 
