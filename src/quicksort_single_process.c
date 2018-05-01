@@ -10,27 +10,29 @@ a control to compare to our multiprocess quicksort implementation.*/
 # include <limits.h>
 # include <sys/time.h>
 
-void quicksort(int array[], int lowIndex, int highIndex);
-int partition(int array[], int lowIndex, int highIndex);
-int swap(int *one, int *two);
-int *randomArray(int size);
+void quicksort(int array[], long lowIndex, long highIndex);
+int partition(int array[], long lowIndex, long highIndex);
+void swap (int *arr, long index1, long index2);
+int *randomArray(long size);
 
 int main(int argc, char* argv[]){
   struct timeval start_time, stop_time, elapsed_time;
-  int i;
-  for(i = 1; i < 5000000; i = i * 2){
-    int *unsorted =  randomArray(i);
-    int temp[i];
-    gettimeofday(&start_time,NULL);
+  long i;
+  for(i = 1; i < 100000000; i = i * 2){
+
+    int *unsorted = malloc(i * sizeof(int));
+    unsorted = randomArray(i);
+    gettimeofday(&start_time, NULL);
     quicksort(unsorted, 0, (i - 1));
-    gettimeofday(&stop_time,NULL);
+    gettimeofday(&stop_time, NULL);
 
     timersub(&stop_time, &start_time, &elapsed_time);
-    printf("N = %d, Time = %f\n", i, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+    printf("%ld,%f\n", i, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+    free(unsorted);
   }
 }
 
-void quicksort(int array[], int lowIndex, int highIndex){
+void quicksort(int array[], long lowIndex, long highIndex){
   if(lowIndex < highIndex){
     int i = partition(array, lowIndex, highIndex);
     quicksort(array, lowIndex, i - 1);
@@ -38,35 +40,34 @@ void quicksort(int array[], int lowIndex, int highIndex){
   }
 }
 
-int partition(int array[], int lowIndex, int highIndex){
+int partition(int array[], long lowIndex, long highIndex){
   int pivot = array[highIndex];
   int i = (lowIndex - 1);
 
   for(int j = lowIndex; j <= highIndex - 1; j++){
     if(array[j] <= pivot){
       i++;
-      swap(&array[i], &array[j]);
+      swap(array, i, j);
     }
   }
-  swap(&array[i + 1], &array[highIndex]);
+  swap(array, (i + 1), highIndex);
   return (i + 1);
 }
 
-int swap(int *one, int *two){
-  int temp = *one;
-  *one = *two;
-  *two = temp;
+void swap (int *arr, long index1, long index2){
+  int temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
 }
 
 
-int *randomArray (int size){
+int *randomArray (long size){
   int *arr = malloc(size * sizeof(int));
   srand(time(0));
 
-  for (int i = 0; i < size; i++){
+  for (long i = 0; i < size; i++){
     int num = (rand() % INT_MAX);
     arr[i] = num;
   }
-
   return arr;
 }
