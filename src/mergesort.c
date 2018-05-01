@@ -36,6 +36,9 @@ void merge(int *arr, int start, int middle, int stop);
 int main (int argc, char* argv[]) {
 
   struct timeval start_time, stop_time, elapsed_time;
+
+  printf("%s, %s", argv[0], argv[1]);
+
   int threads = atoi(argv[0]);
   int size = atoi(argv[1]);
 
