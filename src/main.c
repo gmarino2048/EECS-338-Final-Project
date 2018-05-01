@@ -166,6 +166,6 @@ int validate (int *arr, int size){
 }
 
 // The writeout method has not yet been implemented
-int writeout (int threads, int size double quick, double merge, double bubble) {
+int writeout (int threads, int size, double quick, double merge, double bubble) {
 
 }
