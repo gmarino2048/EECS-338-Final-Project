@@ -4,11 +4,13 @@ inputs and number of pthreads in use. Source of merge sort
 algorithm is from mycodeschool's Github at URL:
 https://gist.github.com/mycodeschool/9678029 */
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<semaphore.h>
-#include<pthread.h>
-#include<unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <semaphore.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <limits.h>
+
 
 int threadCount;
 int MAX_THREADS;
@@ -24,9 +26,34 @@ struct Args{
   int stop;
 };
 
+int *randomArray (int size);
 void mergesort(int *arr, int threads, int size);
 void *mergesort_setup(void *arguments);
 void merge(int *arr, int start, int middle, int stop);
+
+int main () {
+  for (int threads = 1; threads < 128; threads = threads * 2){
+    for (int list_size = 2; list_size < 500000000; list_size = list_size * 2){
+
+      int *arr = randomArray(list_size);
+      //Start time
+      mergesort(arr, threads, list_size);
+      //Get time
+
+      printf("%d,%d,\n", threads, list_size);
+    }
+  }
+}
+
+int *randomArray (int size){
+  int *arr = malloc(size * sizeof(int));
+  srand(time(0));
+
+  for (int i = 0; i < size; i++){
+    int num = (rand % INT_MAX);
+    arr[i] = num;
+  }
+}
 
 void mergesort(int *arr, int threads, int size){
   if (threads == 0){

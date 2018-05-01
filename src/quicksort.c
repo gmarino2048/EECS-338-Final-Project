@@ -122,11 +122,7 @@ int partition (int *arr, int start, int stop){
 }
 
 void swap (int *arr, int index1, int index2){
-  printf ("%d\t%d\n", arr[index1], arr[index2]);
-
   int temp = arr[index1];
   arr[index1] = arr[index2];
   arr[index2] = temp;
-
-  printf ("%d\t%d\n", arr[index1], arr[index2]);
 }
