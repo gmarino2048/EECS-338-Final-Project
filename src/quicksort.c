@@ -1,17 +1,14 @@
 
 # include <stdio.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include <semaphore.h>
-# include <time.h>
 # include <pthread.h>
+# include <unistd.h>
 # include <limits.h>
+# include <sys/time.h>
 
 int threadCount;
 int MAX_THREADS;
-
-pthread_t *pthreads;
-pthread_attr_t *attributes;
 
 sem_t mutex;
 
@@ -64,7 +61,7 @@ int *randomArray (long size){
   return arr;
 }
 
-void quicksort(int *arr, int threads, int size){
+void quicksort(int *arr, int threads, long size){
   if (threads == 0){
     printf("Cannot run on 0 threads\n");
     exit(-1);
@@ -73,8 +70,7 @@ void quicksort(int *arr, int threads, int size){
   threadCount = 0;
   MAX_THREADS = threads;
 
-  pthreads = malloc(threads * sizeof(pthread_t));
-  attributes = malloc(threads * sizeof(pthread_attr_t));
+  pthread_t parent;
 
   struct Args initial;
 
@@ -82,17 +78,14 @@ void quicksort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size;
 
-  if (pthread_create(&pthreads[0], &attributes[0], quicksort_setup, (void *) &initial) < 0){
+  if (pthread_create(&parent, NULL, quicksort_setup, (void *) &initial) < 0){
     printf("Could not create thread\n");
     exit(-1);
   }
 
-  pthread_join(pthreads[0], NULL);
+  pthread_join(parent, NULL);
 
   printf("finished\n");
-
-  free (pthreads);
-  free (attributes);
 }
 
 
@@ -110,51 +103,54 @@ void *quicksort_setup (void *arguments){
       int tempCount = threadCount;
       sem_post(&mutex);
 
-      struct Args right = {args.arr, pivot, args.stop};
-      if (pthread_create(&pthreads[tempCount], &attributes[tempCount], quicksort_setup, &right) < 0){
+      pthread_t myID;
+
+      struct Args right = {args.arr, pivot + 1, args.stop};
+      if (pthread_create(&myID, NULL, quicksort_setup, &right) < 0){
         printf("Could not create pthread at section %d\n", tempCount);
         exit(-1);
       }
 
-      struct Args left = {args.arr, args.start, pivot};
+      struct Args left = {args.arr, args.start, pivot - 1};
       quicksort_setup(&left);
 
-      pthread_join(pthreads[tempCount], NULL);
+      pthread_join(myID, NULL);
     }
     else {
       sem_post(&mutex);
 
-      struct Args left = {args.arr, args.start, pivot};
+      struct Args left = {args.arr, args.start, pivot - 1};
       quicksort_setup(&left);
 
-      struct Args right = {args.arr, pivot, args.stop};
+      struct Args right = {args.arr, pivot + 1, args.stop};
       quicksort_setup(&right);
     }
   }
   return 0;
 }
 
-int partition (int *arr, int start, int stop){
- // Partition a sublist of arr using the start and stop indices
- int low = start;
- int high = stop - 1;
+partition (int *arr, long low, long high)
+{
+    // pivot (Element to be placed at right position)
+    int pivot = arr[high];
 
- int pivot = arr[high];
+    long i = (low - 1);  // Index of smaller element
 
- int i = low - 1;
-
- for (int j = low; j < high; j++){
-   if (arr[j] < pivot){
-     i = i + 1;
-     swap(arr, i, j);
-   }
- }
-
- swap(arr, i + 1, high);
- return i + 1;
+    for (long j = low; j <= high- 1; j++)
+    {
+        // If current element is smaller than or
+        // equal to pivot
+        if (arr[j] <= pivot)
+        {
+            i++;    // increment index of smaller element
+            swap(arr, i, j);
+        }
+    }
+    swap(arr, i + 1, high);
+    return (i + 1);
 }
 
-void swap (int *arr, int index1, int index2){
+void swap (int *arr, long index1, long index2){
   int temp = arr[index1];
   arr[index1] = arr[index2];
   arr[index2] = temp;

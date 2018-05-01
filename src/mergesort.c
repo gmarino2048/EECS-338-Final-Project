@@ -17,9 +17,6 @@ https://gist.github.com/mycodeschool/9678029 */
 int threadCount;
 int MAX_THREADS;
 
-//pthread_t *pthreads;
-//pthread_attr_t *attributes;
-
 sem_t mutex;
 
 struct Args{
@@ -82,8 +79,6 @@ void mergesort(int *arr, int threads, long size){
   MAX_THREADS = threads;
 
   pthread_t parent;
-  /*pthreads = malloc(threads * sizeof(pthread_t));
-  attributes = malloc(threads * sizeof(pthread_attr_t));*/
 
   struct Args initial;
 
@@ -97,9 +92,6 @@ void mergesort(int *arr, int threads, long size){
   }
 
   pthread_join(parent, NULL);
-
-  /*free (pthreads);
-  free (attributes);*/
 }
 
 void *mergesort_setup (void *arguments){
