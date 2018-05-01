@@ -185,11 +185,3 @@ void *bubble (void *arguments){
   printf ("Exiting Thread...\n");
   pthread_exit(NULL);
 }
-
-
-// Swaps the two elements at positions i and j in the array
-void swap (int *arr,int i, int j) {
-  int temp = arr[j];
-  arr[j] = arr[i];
-  arr[i] = temp;
-}
