@@ -4,6 +4,7 @@
 # include <stdlib.h>
 # include <semaphore.h>
 # include <pthread.h>
+# include <limits.h>
 
 int threadCount;
 int MAX_THREADS;
@@ -19,10 +20,37 @@ struct Args {
   int stop;
 };
 
+int *randomArray (int size);
 void quicksort(int *arr, int threads, int size);
 void *quicksort_setup(void *arguments);
 int partition(int arr[], int start, int stop);
 void swap(int arr[], int index1, int index2);
+
+int main () {
+  for (int threads = 1; threads < 128; threads = threads * 2){
+    for (int list_size = 2; list_size < 500000000; list_size = list_size * 2){
+
+      int *arr = randomArray(list_size);
+      //Start time
+      quicksort(arr, threads, list_size);
+      //Get time
+
+      printf("%d,%d,\n", threads, list_size);
+    }
+  }
+}
+
+int *randomArray (int size){
+  int *arr = malloc(size * sizeof(int));
+  srand(time(0));
+
+  for (int i = 0; i < size; i++){
+    int num = (rand() % INT_MAX);
+    arr[i] = num;
+  }
+
+  return arr;
+}
 
 void quicksort(int *arr, int threads, int size){
   if (threads == 0){
