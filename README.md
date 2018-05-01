@@ -182,6 +182,10 @@ This function of `quicksort_single_process.c` determines the partition index to 
 
 This function is a helper method that swaps two values within an array.
 
+`int main()`
+
+Utilized for testing purposes, not relevant to project. 
+
 ##### Summary of Data Types
 
 The file `quicksort_single_process.c` contains a single array as its data structure. It will continuously swap values in this array through the functions discussed in the previous section until the array is sorted ascendingly. 
