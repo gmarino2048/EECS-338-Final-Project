@@ -42,7 +42,7 @@ int main (int argc, char* argv[]) {
   int *arr = randomArray(size);
 
   gettimeofday(&start_time,NULL);
-  mergesort(arr, threads, list_size);
+  mergesort(arr, threads, size);
   gettimeofday(&stop_time,NULL);
 
   timersub(&stop_time, &start_time, &elapsed_time);
