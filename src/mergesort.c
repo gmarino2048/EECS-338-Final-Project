@@ -38,7 +38,7 @@ int main () {
   struct timeval start_time, stop_time, elapsed_time;
 
   for (int threads = 1; threads < 128; threads = threads * 2){
-    for (int list_size = 2; list_size < 1000000000; list_size = list_size * 2){
+    for (int list_size = 2; list_size < 5000000; list_size = list_size * 2){
 
       int *arr = randomArray(list_size);
       gettimeofday(&start_time,NULL);
