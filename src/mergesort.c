@@ -28,16 +28,6 @@ void mergesort(int *arr, int threads, int size);
 void *mergesort_setup(void *arguments);
 void merge(int *arr, int start, int middle, int stop);
 
-int main(){
-  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
-
-  mergesort(unsorted, 3, 10);
-
-  for(int i = 0; i < 10; i++){
-    printf("%d\t", unsorted[i]);
-  }
-}
-
 void mergesort(int *arr, int threads, int size){
   if (threads == 0){
     printf("Cannot run on 0 threads\n");

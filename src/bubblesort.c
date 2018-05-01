@@ -28,16 +28,6 @@ void bubblesort(int *arr, int threads, int size);
 void *bubble (void *args);
 void swap(int *arr, int i, int j);
 
-int main() {
-  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
-
-  bubblesort(unsorted, 3, 10);
-
-  for (int i = 0; i < 10; i++){
-    printf("%d\t", unsorted[i]);
-  }
-}
-
 // A function to implement bubble sort
 // This method is not yet complete
 void bubblesort(int *arr, int threads, int size){

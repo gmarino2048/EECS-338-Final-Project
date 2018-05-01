@@ -24,16 +24,6 @@ void *quicksort_setup(void *arguments);
 int partition(int arr[], int start, int stop);
 void swap(int arr[], int index1, int index2);
 
-int main() {
-  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
-
-  quicksort(unsorted, 3, 10);
-
-  for (int i = 0; i < 10; i++){
-    printf("%d\t", unsorted[i]);
-  }
-}
-
 void quicksort(int *arr, int threads, int size){
   if (threads == 0){
     printf("Cannot run on 0 threads\n");
