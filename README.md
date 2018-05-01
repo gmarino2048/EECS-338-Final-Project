@@ -112,6 +112,42 @@ The only data type that we created for this file is the struct `params` that wil
 
 Quick Sort returns no output.
 
+### mergesort_single_process.c
+
+##### Summary of functions
+
+##### Summary of Data Types
+
+
+##### Sample Output
+
+
+### bubblesort_single_process.c
+
+This is the classic bubblesort algorithm for a single process. We are using it to compare to the multiprocess sorting algorithms we created as a sort of control in the experiment that will be conducted in `main.c`.
+
+##### Summary of functions
+
+`bubblesort(int array[], int index)`
+
+This method of the `mergesort_single_process.c` file will sort a list of values in an ascending order. It does this by looking through the list of values linearly, and at each increment it will compare the index value to the next sequential value. It will swap the values and continue searching the list linearly until the list is sorted.
+
+`swap(int *one, int *two)`
+
+This method of the `mergesort_single_process.c` file is a helper method for the `bubblesort(int array[], int index)` method. It is used to swap the value of one, and two. Utilized primarily to make the code more readable.
+
+`int main()`
+
+Utilized primarily for testing output, but not necessary for the project.
+
+##### Summary of Data Types
+
+This function operates on only a single array. Since it is a single process function, no variables are necessary to be protected.
+
+##### Sample Output
+
+This file returns no output necessary for the project as a whole.
+
 ### main.c
 
 Main is utilized to test our sorting algoirthms. The methodology for this is to time the functions at each parameter. The parameters we will be testing are as follows:
