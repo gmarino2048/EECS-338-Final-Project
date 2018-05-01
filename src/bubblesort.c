@@ -103,8 +103,6 @@ void bubblesort(int *arr, int threads, int size){
      completed = 0;
      sem_post(&scmutex);
 
-     printf ("Resetting bubbles size: %d\n", size);
-
      sem_wait(&srmutex);
      reset = !reset;
      sem_post(&srmutex);
