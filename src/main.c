@@ -65,7 +65,7 @@ int main(){
 
   //Perform on multiple threads
 	for (int threads = 1; threads <= 64; threads = threads * 2){
-    for (int length = 1; length < 1000000000; length = length * 10){
+    for (int length = 10; length < 1000000000; length = length * 10){
       // Perform with length * 1
       int size = length * 1;
       RandomArray(size);
