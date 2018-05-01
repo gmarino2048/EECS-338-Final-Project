@@ -51,14 +51,15 @@ int main (int argc, char* argv[]) {
 }
 
 int *randomArray (int size){
-  int *arr = malloc(size * sizeof(int));
-  srand(time(0));
+  int arr [size];
+
+  srand(0);
 
   for (int i = 0; i < size; i++){
-    int num = (rand() % INT_MAX);
-    arr[i] = num;
+    arr[i] = rand();
   }
-  printf("added");
+
+  printf("added\n");
 
   return arr;
 }
