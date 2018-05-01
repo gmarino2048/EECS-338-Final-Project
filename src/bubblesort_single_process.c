@@ -2,27 +2,30 @@
 This algorithm will be used in testing, and will serve as
 a control to compare to our multiprocess bubblesort implementation.*/
 
-#include <stdio.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <semaphore.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <limits.h>
+# include <sys/time.h>
 
 void bubblesort(int array[], int index);
 void swap(int *one, int *two);
+int *randomArray(int size);
 
 int main(){
+  struct timeval start_time, stop_time, elapsed_time;
   int i;
-  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
-  int length = sizeof(unsorted)/sizeof(int);
-  printf("List Before Sorting\n");
-  for(i = 0; i < length; i++){
-    printf("%d", unsorted[i]);
-  }
+  for(i = 1; i < 5000000; i = i * 2){
+    int *unsorted =  randomArray(i);
+    gettimeofday(&start_time,NULL);
+    bubblesort(unsorted, i);
+    gettimeofday(&stop_time,NULL);
 
-  bubblesort(unsorted, length);
-
-  printf("\nList After Sorting\n");
-  for(i = 0; i < length; i++){
-    printf("%d", unsorted[i]);
+    timersub(&stop_time, &start_time, &elapsed_time);
+    printf("N = %d, Time = %f\n", i, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
   }
-  printf("\n");
 }
 
 void bubblesort(int array[], int index){
@@ -40,4 +43,16 @@ void swap(int *one, int *two){
   int temp = *one;
   *one = *two;
   *two = temp;
+}
+
+int *randomArray (int size){
+  int *arr = malloc(size * sizeof(int));
+  srand(time(0));
+
+  for (int i = 0; i < size; i++){
+    int num = (rand() % INT_MAX);
+    arr[i] = num;
+  }
+
+  return arr;
 }
