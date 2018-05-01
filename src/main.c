@@ -51,7 +51,7 @@ int *RandomArray(int arraySize){
 	int i = 0;
   int array[arraySize];
 	srand(time(0));
-	for(i = 0; i < size; i++){
+	for(i = 0; i < arraySize; i++){
 		int number = (rand() % INT_MAX);
 		//printf("%d", number);
 		array[i] = number;
