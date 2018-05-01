@@ -62,7 +62,7 @@ void mergesort(int *arr, int threads, int size){
 
   initial.arr = arr;
   initial.start = 0;
-  initial.stop = size;
+  initial.stop = size - 1;
 
   if (pthread_create(&pthreads[0], &attributes[0], mergesort_setup, (void *) &initial) < 0){
     printf("Could not create thread\n");
@@ -82,7 +82,7 @@ void *mergesort_setup (void *arguments){
   struct Args args = *((struct Args *) arguments);
 
   if (args.start < (args.stop - 1)){
-    int split = (args.start + args.stop) / 2;
+    int split = (args.start + (args.stop - 1)) / 2;
 
     sem_wait(&mutex);
     if (threadCount < (MAX_THREADS - 1)){
@@ -103,7 +103,7 @@ void *mergesort_setup (void *arguments){
       pthread_join(pthreads[tempCount], NULL);
 
       printf("Running Merge\n");
-      merge(args.arr, args.start, split, args.stop);
+      merge(args.arr, args.start, split + 1, args.stop);
     }
     else {
       sem_post(&mutex);
@@ -111,7 +111,7 @@ void *mergesort_setup (void *arguments){
       struct Args left = {args.arr, args.start, split};
       mergesort_setup(&left);
 
-      struct Args right = {args.arr, split, args.stop};
+      struct Args right = {args.arr, split + 1, args.stop};
       mergesort_setup(&right);
 
       printf("Running Merge\n");
