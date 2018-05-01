@@ -10,7 +10,9 @@ https://gist.github.com/mycodeschool/9678029 */
 # include <pthread.h>
 # include <unistd.h>
 # include <limits.h>
+# include <sys/time.h>
 
+//gcc mergesort.c -o mergesort -lpthread -Wall -DTRACE --std=c99 -D_BSD_SOURCE -lrt
 
 int threadCount;
 int MAX_THREADS;
@@ -32,17 +34,19 @@ void *mergesort_setup(void *arguments);
 void merge(int *arr, int start, int middle, int stop);
 
 int main () {
+
+  struct timeval start_time, stop_time, elapsed_time;
+
   for (int threads = 1; threads < 128; threads = threads * 2){
     for (int list_size = 2; list_size < 500000000; list_size = list_size * 2){
 
       int *arr = randomArray(list_size);
-      //Start time
+      gettimeofday(&start_time,NULL);
       mergesort(arr, threads, list_size);
-      //Get time
+      gettimeofday(&stop_time,NULL);
 
-      printf("%d,%d,\n", threads, list_size);
-
-      free(arr);
+      timersub(&stop_time, &start_time, &elapsed_time);
+      printf("%d,%d,%f\n", threads, list_size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
     }
   }
 }
