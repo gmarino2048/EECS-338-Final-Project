@@ -69,7 +69,7 @@ int main(){
     for (int length = 1; length < 1000000000; length = length * 10){
       // Perform with length * 1
       int size = length * 1;
-      int *RandomArray(size);
+      RandomArray(size);
 
       // Start time here
       quicksort(arr, threads, size);
