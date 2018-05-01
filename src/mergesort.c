@@ -88,8 +88,6 @@ void mergesort(int *arr, int threads, int size){
     exit(-1);
   }
 
-  printf ("Thread Created with tid %ld\n", pthreads[0]);
-
   pthread_join(pthreads[0], NULL);
 
   free (pthreads);
@@ -114,14 +112,12 @@ void *mergesort_setup (void *arguments){
         printf("Could not create pthread at section %d\n", tempCount);
         exit(-1);
       }
-      printf("Thread Created\n");
 
       struct Args left = {args.arr, args.start, split};
       mergesort_setup(&left);
 
       pthread_join(pthreads[tempCount], NULL);
 
-      printf("Running Merge\n");
       merge(args.arr, args.start, split, args.stop);
     }
     else {
@@ -133,7 +129,6 @@ void *mergesort_setup (void *arguments){
       struct Args right = {args.arr, split + 1, args.stop};
       mergesort_setup(&right);
 
-      printf("Running Merge\n");
       merge(args.arr, args.start, split, args.stop);
     }
   }
