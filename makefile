@@ -18,4 +18,4 @@ main: $(SRC)main.c
 	$(CC) -c -o $(BIN)main.o $(SRC)main.c $(ARGS)
 
 join: $(BIN)mergesort.o $(BIN)quicksort.o $(BIN)bubblesort.o $(BIN)main.o
-	gcc -o run $(BIN)mergesort.o $(BIN)quicksort.o $(BIN)bubblesort.o $(BIN)main.o
+	gcc -o run $(BIN)mergesort.o $(BIN)quicksort.o $(BIN)bubblesort.o $(BIN)main.o $(ARGS) 
