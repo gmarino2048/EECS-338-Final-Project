@@ -39,8 +39,8 @@ int main (int argc, char* argv[]) {
 
   printf("%s, %s", argv[1], argv[2]);
 
-  int threads = atoi(argv[0]);
-  int size = atoi(argv[1]);
+  int threads = atoi(argv[1]);
+  int size = atoi(argv[2]);
 
   int *arr = randomArray(size);
 
