@@ -33,21 +33,20 @@ void mergesort(int *arr, int threads, int size);
 void *mergesort_setup(void *arguments);
 void merge(int *arr, int start, int middle, int stop);
 
-int main () {
+int main (int argc, char* argv[]) {
 
   struct timeval start_time, stop_time, elapsed_time;
+  int threads = atoi(argv[0]);
+  int size = atoi(argv[1]);
 
-  for (int threads = 1; threads < 64; threads = threads * 2){
-    for (int list_size = 2; list_size < 5000000; list_size = list_size * 2){
+  int *arr = randomArray(size);
 
-      int *arr = randomArray(list_size);
-      gettimeofday(&start_time,NULL);
-      mergesort(arr, threads, list_size);
-      gettimeofday(&stop_time,NULL);
+  gettimeofday(&start_time,NULL);
+  mergesort(arr, threads, list_size);
+  gettimeofday(&stop_time,NULL);
 
-      timersub(&stop_time, &start_time, &elapsed_time);
-      printf("%d,%d,%f\n", threads, list_size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
-    }
+  timersub(&stop_time, &start_time, &elapsed_time);
+  printf("%d,%d,%f\n", threads, list_size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
   }
 }
 
