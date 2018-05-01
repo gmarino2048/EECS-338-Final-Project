@@ -46,8 +46,7 @@ int main (int argc, char* argv[]) {
   gettimeofday(&stop_time,NULL);
 
   timersub(&stop_time, &start_time, &elapsed_time);
-  printf("%d,%d,%f\n", threads, list_size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
-  }
+  printf("%d,%d,%f\n", threads, size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
 }
 
 int *randomArray (int size){
