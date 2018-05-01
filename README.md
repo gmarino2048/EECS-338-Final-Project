@@ -118,17 +118,17 @@ This file contains the classic mergesort algorithm for that is run with a single
 
 ##### Summary of functions
 
-`void sort(int array[], int temp[], int low, int high)`
+`void sort(int array[], int temp[], long low, long high)`
 
-This function contained in `mergesort_single_process.c` is used as the main call to sort an array in ascending order using the classic mergesort algorithm. The way it works is by repeatedly calling the sort function recursively, and the merge function that will be discussed following this. The sort function will split the array in half as evenly as possible repeatably. Array and Temp is passed in order to get the place in memory from the `main()` method to the `merge()` method. 
+This function contained in `mergesort_single_process.c` is used as the main call to sort an array in ascending order using the classic mergesort algorithm. The way it works is by repeatedly calling the sort function recursively, and the merge function that will be discussed following this. The sort function will split the array in half as evenly as possible repeatably. Array and Temp is passed in order to get the place in memory from the `main()` method to the `merge()` method. Longs are passed to avoid segmentation faults.
 
-`void merge(int array[], int temp[], int low, int mid, int high)`
+`void merge(int array[], int temp[], long low, long mid, long high)`
 
-This function of the `mergesort_single_process.c` file merges the array back together after it has been split based off which value is larger. It does this by utilizing the array `temp[]` to store the values of `array[]` in the desired order. At the end of the algorithm, the updated values in `temp[]` are placed in `array[]`, and `temp[]` is emptied to ensure no overflow errors. 
+This function of the `mergesort_single_process.c` file merges the array back together after it has been split based off which value is larger. It does this by utilizing the array `temp[]` to store the values of `array[]` in the desired order. At the end of the algorithm, the updated values in `temp[]` are placed in `array[]`, and `temp[]` is emptied to ensure no overflow errors. Longs are passed to avoid segmentation faults.
 
 `int main()`
 
-function utilized mainly for testing purposes, provides an output, but not necessary for the project as a whole. 
+Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 1000000. The times will be compared to our multi-threaded algorithm.
 
 ##### Summary of Data Types
 
@@ -136,7 +136,27 @@ Two arrays are utilized in this file, `temp[]` and `array[]`. `array[]` contains
 
 ##### Sample Output
 
-This file contains no relevant output to the project overall. 
+N = 1, Time = 0.000000
+N = 2, Time = 0.000001
+N = 4, Time = 0.000000
+N = 8, Time = 0.000002
+N = 16, Time = 0.000002
+N = 32, Time = 0.000005
+N = 64, Time = 0.000009
+N = 128, Time = 0.000018
+N = 256, Time = 0.000035
+N = 512, Time = 0.000076
+N = 1024, Time = 0.000161
+N = 2048, Time = 0.000353
+N = 4096, Time = 0.000757
+N = 8192, Time = 0.001618
+N = 16384, Time = 0.003440
+N = 32768, Time = 0.007403
+N = 65536, Time = 0.015791
+N = 131072, Time = 0.044796
+N = 262144, Time = 0.129047
+N = 524288, Time = 0.270556
+N = 1048576, Time = 0.485138
 
 ### bubblesort_single_process.c
 
@@ -144,17 +164,17 @@ This is the classic bubblesort algorithm for a single process. We are using it t
 
 ##### Summary of functions
 
-`bubblesort(int array[], int index)`
+`bubblesort(int array[], long index)`
 
-This method of the `mergesort_single_process.c` file will sort a list of values in an ascending order. It does this by looking through the list of values linearly, and at each increment it will compare the index value to the next sequential value. It will swap the values and continue searching the list linearly until the list is sorted.
+This method of the `mergesort_single_process.c` file will sort a list of values in an ascending order. It does this by looking through the list of values linearly, and at each increment it will compare the index value to the next sequential value. It will swap the values and continue searching the list linearly until the list is sorted. A long is passed to avoid segmentation faults.
 
-`swap(int *one, int *two)`
+`swap(int *arr, long index1, long index2)`
 
-This method of the `mergesort_single_process.c` file is a helper method for the `bubblesort(int array[], int index)` method. It is used to swap the value of one, and two. Utilized primarily to make the code more readable.
+This method of the `mergesort_single_process.c` file is a helper method for the `bubblesort(int array[], long index)` method. It is used to swap the value of index1, and index2. Utilized primarily to make the code more readable, longs are passed to avoid segmentation faults.
 
 `int main()`
 
-Utilized primarily for testing output, but not necessary for the project.
+Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 1000000. The times will be compared to our multi-threaded algorithm.
 
 ##### Summary of Data Types
 
@@ -162,7 +182,21 @@ This function operates on only a single array. Since it is a single process func
 
 ##### Sample Output
 
-This file returns no output necessary for the project as a whole.
+N = 1, Time = 0.000001
+N = 2, Time = 0.000002
+N = 4, Time = 0.000002
+N = 8, Time = 0.000003
+N = 16, Time = 0.000006
+N = 32, Time = 0.000016
+N = 64, Time = 0.000049
+N = 128, Time = 0.000175
+N = 256, Time = 0.000618
+N = 512, Time = 0.002272
+N = 1024, Time = 0.008868
+N = 2048, Time = 0.036607
+N = 4096, Time = 0.117366
+N = 8192, Time = 0.478801
+N = 16384, Time = 2.027349
 
 ### quicksort_single_process.c
 
@@ -170,21 +204,21 @@ This is the classic bubblesort algorithm for a single process. We are using it t
 
 ##### Summary of functions
 
-`void quicksort(int array[], int lowIndex, int highIndex)`
+`void quicksort(int array[], long lowIndex, long highIndex)`
 
-This function of `quicksort_single_process.c` is the classic quicksort algorithm for a single process. Recursively calls itself and splits the array in half at a partition index. Takes an `array[]` and sorts the array ascending. 
+This function of `quicksort_single_process.c` is the classic quicksort algorithm for a single process. Recursively calls itself and splits the array in half at a partition index. Takes an `array[]` and sorts the array ascending. Longs are used for lowIndex and highIndex in order to avoid segmentation faults.
 
-`int partition(int array[], int lowIndex, int highIndex)`
+`int partition(int array[], long lowIndex, long highIndex)`
 
-This function of `quicksort_single_process.c` determines the partition index to be utilized in the `void quicksort(int array[] int lowIndex, int highIndex)` function. 
+This function of `quicksort_single_process.c` determines the partition index to be utilized in the `void quicksort(int array[], long lowIndex, long highIndex)` function. Longs are passed in order to avoid segmentation faults.
 
-`int swap(int *one, int *two)`
+`int swap(int *arr, long index1, long index2)`
 
-This function is a helper method that swaps two values within an array.
+This function is a helper method that swaps two values within an array. Longs are passed to avoid segmentation faults.
 
 `int main()`
 
-Utilized for testing purposes, not relevant to project. 
+Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 100000000. The times will be compared to our multi-threaded algorithm.
 
 ##### Summary of Data Types
 
@@ -192,7 +226,28 @@ The file `quicksort_single_process.c` contains a single array as its data struct
 
 ##### Sample Output
 
-This file gives no relevant output.
+N = 1, Time = 0.000000
+N = 2, Time = 0.000000
+N = 4, Time = 0.000001
+N = 8, Time = 0.000002
+N = 16, Time = 0.000002
+N = 32, Time = 0.000004
+N = 64, Time = 0.000007
+N = 128, Time = 0.000015
+N = 256, Time = 0.000033
+N = 512, Time = 0.000066
+N = 1024, Time = 0.000147
+N = 2048, Time = 0.000316
+N = 4096, Time = 0.000705
+N = 8192, Time = 0.001547
+N = 16384, Time = 0.003381
+N = 32768, Time = 0.007348
+N = 65536, Time = 0.015470
+N = 131072, Time = 0.049027
+N = 262144, Time = 0.106824
+N = 524288, Time = 0.248797
+N = 1048576, Time = 0.442365
+N = 2097152, Time = 1.491803
 
 ### main.c
 
