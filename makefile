@@ -1,7 +1,7 @@
 BIN=bin/
 SRC=src/
 CC=gcc
-ARGS=-lpthread -Wall -DTRACE --std=c99 -D_BSD_SOURCE -lrt
+ARGS=-lpthread -Wall -DTRACE --std=c99 -D_BSD_SOURCE -lrt -g
 
 all: mergesort quicksort bubblesort
 

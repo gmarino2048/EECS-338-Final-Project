@@ -17,44 +17,54 @@ https://gist.github.com/mycodeschool/9678029 */
 int threadCount;
 int MAX_THREADS;
 
-pthread_t *pthreads;
-pthread_attr_t *attributes;
+//pthread_t *pthreads;
+//pthread_attr_t *attributes;
 
 sem_t mutex;
 
 struct Args{
   int *arr;
-  int start;
-  int stop;
+  long start;
+  long stop;
 };
 
-int *randomArray (int size);
-void mergesort(int *arr, int threads, int size);
+int *randomArray (long size);
+void mergesort(int *arr, int threads, long size);
 void *mergesort_setup(void *arguments);
-void merge(int *arr, int start, int middle, int stop);
+void merge(int *arr, long start, long middle, long stop);
+
+
 
 int main (int argc, char* argv[]) {
 
+  if (sem_init(&mutex, 0, 1) < 0){
+    printf ("Could not initialize semaphore\n");
+    exit(-1);
+  }
+
   struct timeval start_time, stop_time, elapsed_time;
 
-  int threads = atoi(argv[1]);
-  int size = atoi(argv[2]);
+  for (int threads = 1; threads < 128; threads = threads *2){
+    for (long size = 1; size < 100000000; size = size *2){
+      int *arr = randomArray(size);
 
-  int *arr = randomArray(size);
+      gettimeofday(&start_time,NULL);
+      mergesort(arr, threads, size);
+      gettimeofday(&stop_time,NULL);
 
-  gettimeofday(&start_time,NULL);
-  mergesort(arr, threads, size);
-  gettimeofday(&stop_time,NULL);
+      timersub(&stop_time, &start_time, &elapsed_time);
+      printf("%d,%ld,%f\n", threads, size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+    }
+  }
 
-  timersub(&stop_time, &start_time, &elapsed_time);
-  printf("%d,%d,%f\n", threads, size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+  sem_destroy(&mutex);
 }
 
-int *randomArray (int size){
+int *randomArray (long size){
   int *arr = malloc(size * sizeof(int));
   srand(time(0));
 
-  for (int i = 0; i < size; i++){
+  for (long i = 0; i < size; i++){
     int num = (rand() % INT_MAX);
     arr[i] = num;
   }
@@ -62,25 +72,18 @@ int *randomArray (int size){
   return arr;
 }
 
-void mergesort(int *arr, int threads, int size){
+void mergesort(int *arr, int threads, long size){
   if (threads == 0){
     printf("Cannot run on 0 threads\n");
     exit(-1);
   }
 
-  threadCount = 0;
+  threadCount = 1;
   MAX_THREADS = threads;
 
-  pthread_t tempThreads[threads];
-  pthread_attr_t tempAttributes[threads];
-
-  pthreads = malloc(sizeof(tempThreads));
-  attributes = malloc(sizeof(tempAttributes));
-
-  if (sem_init(&mutex, 0, 1) < 0){
-    printf ("Could not initialize semaphore\n");
-    exit(-1);
-  }
+  pthread_t parent;
+  /*pthreads = malloc(threads * sizeof(pthread_t));
+  attributes = malloc(threads * sizeof(pthread_attr_t));*/
 
   struct Args initial;
 
@@ -88,15 +91,15 @@ void mergesort(int *arr, int threads, int size){
   initial.start = 0;
   initial.stop = size - 1;
 
-  if (pthread_create(&pthreads[0], &attributes[0], mergesort_setup, (void *) &initial) < 0){
+  if (pthread_create(&parent, NULL, mergesort_setup, (void *) &initial) < 0){
     printf("Could not create thread\n");
     exit(-1);
   }
 
-  pthread_join(pthreads[0], NULL);
+  pthread_join(parent, NULL);
 
-  free (pthreads);
-  free (attributes);
+  /*free (pthreads);
+  free (attributes);*/
 }
 
 void *mergesort_setup (void *arguments){
@@ -105,15 +108,14 @@ void *mergesort_setup (void *arguments){
 
   if (args.start < args.stop){
     int split = (args.start + (args.stop - 1)) / 2;
-
+    pthread_t myid;
     sem_wait(&mutex);
-    if (threadCount < (MAX_THREADS - 1)){
-      threadCount++;
-      int tempCount = threadCount;
+    if (threadCount < MAX_THREADS){
+      int tempCount = threadCount++;
       sem_post(&mutex);
 
       struct Args right = {args.arr, split + 1, args.stop};
-      if (pthread_create(&pthreads[tempCount], &attributes[tempCount], mergesort_setup, &right) < 0){
+      if (pthread_create(&myid, NULL, mergesort_setup, &right) < 0){
         printf("Could not create pthread at section %d\n", tempCount);
         exit(-1);
       }
@@ -121,7 +123,7 @@ void *mergesort_setup (void *arguments){
       struct Args left = {args.arr, args.start, split};
       mergesort_setup(&left);
 
-      pthread_join(pthreads[tempCount], NULL);
+      pthread_join(myid, NULL);
 
       merge(args.arr, args.start, split, args.stop);
     }
@@ -140,13 +142,14 @@ void *mergesort_setup (void *arguments){
   return 0;
 }
 
-void merge(int *arr, int start, int middle, int stop)
+void merge(int *arr, long start, long middle, long stop)
 {
-    int i, j, k;
-    int left = middle - start + 1;
-    int right =  stop - middle;
+    long i, j, k;
+    long left = middle - start + 1;
+    long right =  stop - middle;
 
-    int L[left], R[right];
+    int *L = malloc(left * sizeof (int));
+    int *R = malloc(right * sizeof(int));
 
     for (i = 0; i < left; i++)
         L[i] = arr[start + i];
@@ -181,4 +184,6 @@ void merge(int *arr, int start, int middle, int stop)
         j++;
         k++;
     }
+    free(L);
+    free(R);
 }

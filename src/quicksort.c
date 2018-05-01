@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <semaphore.h>
+# include <time.h>
 # include <pthread.h>
 # include <limits.h>
 
@@ -16,34 +17,49 @@ sem_t mutex;
 
 struct Args {
   int *arr;
-  int start;
-  int stop;
+  long start;
+  long stop;
 };
 
-int *randomArray (int size);
-void quicksort(int *arr, int threads, int size);
+int *randomArray (long size);
+void quicksort(int *arr, int threads, long size);
 void *quicksort_setup(void *arguments);
-int partition(int arr[], int start, int stop);
-void swap(int arr[], int index1, int index2);
+int partition(int *arr, long start, long stop);
+void swap(int *arr, long index1, long index2);
 
-int main (int argc, char *argv[]) {
-  int threads = atoi(argv[1]);
-  int size = atoi(argv[2]);
+int main (int argc, char* argv[]) {
 
-  int *arr = randomArray(size);
-  quicksort(arr, threads, size);
-}
-
-int *randomArray (int size){
-  int arr [size];
-
-  srand(0);
-
-  for (int i = 0; i < size; i++){
-    arr[i] = rand();
+  if (sem_init(&mutex, 0, 1) < 0){
+    printf ("Could not initialize semaphore\n");
+    exit(-1);
   }
 
-  printf("added\n");
+  struct timeval start_time, stop_time, elapsed_time;
+
+  for (int threads = 1; threads < 128; threads = threads *2){
+    for (int size = 1; size < 100000000; size = size *2){
+      int *arr = randomArray(size);
+
+      gettimeofday(&start_time,NULL);
+      quicksort(arr, threads, size);
+      gettimeofday(&stop_time,NULL);
+
+      timersub(&stop_time, &start_time, &elapsed_time);
+      printf("%d,%d,%f\n", threads, size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+    }
+  }
+
+  sem_destroy(&mutex);
+}
+
+int *randomArray (long size){
+  int *arr = malloc(size * sizeof(int));
+  srand(time(0));
+
+  for (long i = 0; i < size; i++){
+    int num = (rand() % INT_MAX);
+    arr[i] = num;
+  }
 
   return arr;
 }
@@ -57,16 +73,8 @@ void quicksort(int *arr, int threads, int size){
   threadCount = 0;
   MAX_THREADS = threads;
 
-  pthread_t tempThreads[threads];
-  pthread_attr_t tempAttributes[threads];
-
-  pthreads = malloc(sizeof(tempThreads));
-  attributes = malloc(sizeof(tempAttributes));
-
-  if (sem_init(&mutex, 0, 1) < 0){
-    printf ("Could not initialize semaphore\n");
-    exit(-1);
-  }
+  pthreads = malloc(threads * sizeof(pthread_t));
+  attributes = malloc(threads * sizeof(pthread_attr_t));
 
   struct Args initial;
 
@@ -93,7 +101,8 @@ void *quicksort_setup (void *arguments){
   struct Args args = *((struct Args *) arguments);
 
   if (args.start < (args.stop - 1)){
-    int pivot = partition(args.arr, args.start, args.stop);
+
+    long pivot = partition(args.arr, args.start, args.stop);
 
     sem_wait(&mutex);
     if (threadCount < (MAX_THREADS - 1)){
