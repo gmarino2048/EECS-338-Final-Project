@@ -2,29 +2,32 @@
 This algorithm will be used in testing, and will serve as
 a control to compare to our multiprocess mergesort implementation.*/
 
-#include <stdio.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <semaphore.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <limits.h>
+# include <sys/time.h>
 
 void sort(int array[], int temp[], int low, int high);
 void merge(int array[], int temp[], int low, int mid, int high);
+int *randomArray(int size);
 
 
 int main(){
+  struct timeval start_time, stop_time, elapsed_time;
   int i;
-  int unsorted[10] = {8, 4, 9, 6, 3, 1, 2, 7, 5, 0};
-  int length = sizeof(unsorted)/sizeof(int);
-  int temp[length + 1];
-  printf("List Before Sorting\n");
-  for(i = 0; i < length; i++){
-    printf("%d", unsorted[i]);
-  }
+  for(i = 1; i < 5000000; i = i * 2){
+    int *unsorted =  randomArray(i);
+    int temp[i];
+    gettimeofday(&start_time,NULL);
+    sort(unsorted, temp, 0, (i - 1));
+    gettimeofday(&stop_time,NULL);
 
-  sort(unsorted, temp, 0, (length - 1));
-
-  printf("\nList After Sorting\n");
-  for(i = 0; i < length; i++){
-    printf("%d", unsorted[i]);
+    timersub(&stop_time, &start_time, &elapsed_time);
+    printf("N = %d, Time = %f\n", i, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
   }
-  printf("\n");
 }
 
 void sort(int array[], int temp[], int low, int high){
@@ -58,4 +61,16 @@ void merge(int array[], int temp[], int low, int mid, int high){
 
    for(i = low; i <= high; i++)
       array[i] = temp[i];
+}
+
+int *randomArray (int size){
+  int *arr = malloc(size * sizeof(int));
+  srand(time(0));
+
+  for (int i = 0; i < size; i++){
+    int num = (rand() % INT_MAX);
+    arr[i] = num;
+  }
+
+  return arr;
 }
