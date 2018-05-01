@@ -72,6 +72,7 @@ int main(){
 
       // Start time here
       quicksort(arr, threads, size);
+      
       // End time, store seconds as double
       if (validate(arr, size) < 0){
         exit(-1);

@@ -117,6 +117,9 @@ void bubblesort(int *arr, int threads, int size){
    for (int i = 0; i < actualThreads; i++) {
      pthread_join(pthreads[i], NULL);
    }
+
+   free(pthreads);
+   free(attributes);
 }
 
 // This method has yet to be implemented
