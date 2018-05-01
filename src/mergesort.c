@@ -90,7 +90,7 @@ void *mergesort_setup (void *arguments){
       int tempCount = threadCount;
       sem_post(&mutex);
 
-      struct Args right = {args.arr, split, args.stop};
+      struct Args right = {args.arr, split + 1, args.stop};
       if (pthread_create(&pthreads[tempCount], &attributes[tempCount], mergesort_setup, &right) < 0){
         printf("Could not create pthread at section %d\n", tempCount);
         exit(-1);
@@ -103,7 +103,7 @@ void *mergesort_setup (void *arguments){
       pthread_join(pthreads[tempCount], NULL);
 
       printf("Running Merge\n");
-      merge(args.arr, args.start, split + 1, args.stop);
+      merge(args.arr, args.start, split, args.stop);
     }
     else {
       sem_post(&mutex);
