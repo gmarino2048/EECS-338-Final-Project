@@ -114,13 +114,29 @@ Quick Sort returns no output.
 
 ### mergesort_single_process.c
 
+This file contains the classic mergesort algorithm for that is run with a single process. We are using it to compare to the multiprocess sorting algorithms we created as a sort of control in the experiment that will be conducted in `main.c`.
+
 ##### Summary of functions
+
+`void sort(int array[], int temp[], int low, int high)`
+
+This function contained in `mergesort_single_process.c` is used as the main call to sort an array in ascending order using the classic mergesort algorithm. The way it works is by repeatedly calling the sort function recursively, and the merge function that will be discussed following this. The sort function will split the array in half as evenly as possible repeatably. Array and Temp is passed in order to get the place in memory from the `main()` method to the `merge()` method. 
+
+`void merge(int array[], int temp[], int low, int mid, int high)`
+
+This function of the `mergesort_single_process.c` file merges the array back together after it has been split based off which value is larger. It does this by utilizing the array `temp[]` to store the values of `array[]` in the desired order. At the end of the algorithm, the updated values in `temp[]` are placed in `array[]`, and `temp[]` is emptied to ensure no overflow errors. 
+
+`int main()`
+
+function utilized mainly for testing purposes, provides an output, but not necessary for the project as a whole. 
 
 ##### Summary of Data Types
 
+Two arrays are utilized in this file, `temp[]` and `array[]`. `array[]` contains the values that is to be sorted, and is updated by the values within `temp[]` at every merge call. The reason this was implemented like this was to ensure that memory would not overflow in the tests where we utilizes arrays of size 500000000. We wanted a single `temp[]` that was written and overwritten continuously in order to ensure this error would be avoided, and also it would allow for O(N) runtime.
 
 ##### Sample Output
 
+This file contains no relevant output to the project overall. 
 
 ### bubblesort_single_process.c
 
@@ -147,6 +163,26 @@ This function operates on only a single array. Since it is a single process func
 ##### Sample Output
 
 This file returns no output necessary for the project as a whole.
+
+### quicksort_single_process.c
+
+This is the classic bubblesort algorithm for a single process. We are using it to compare to the multiprocess sorting algorithms we created as a sort of control in the experiment that will be conducted in `main.c`.
+
+##### Summary of functions
+
+`void quicksort(int array[], int lowIndex, int highIndex)`
+
+`int partition(int array[], int lowIndex, int highIndex)`
+
+`int swap(int *one, int *two)`
+
+##### Summary of Data Types
+
+
+
+##### Sample Output
+
+
 
 ### main.c
 
