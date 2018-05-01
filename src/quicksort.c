@@ -26,21 +26,8 @@ void *quicksort_setup(void *arguments);
 int partition(int arr[], int start, int stop);
 void swap(int arr[], int index1, int index2);
 
-int main () {
-
-  for (int threads = 1; threads < 64; threads = threads * 2){
-    for (int list_size = 2; list_size < 5000000; list_size = list_size * 2){
-
-      int *arr = randomArray(list_size);
-      //Start time
-      quicksort(arr, threads, list_size);
-      //Get time
-
-      printf("%d,%d,\n", threads, list_size);
-
-      free (arr);
-    }
-  }
+int main (char *args) {
+  
 }
 
 int *randomArray (int size){
