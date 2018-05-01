@@ -50,7 +50,7 @@ int *randomArray (int size){
   srand(time(0));
 
   for (int i = 0; i < size; i++){
-    int num = (rand % INT_MAX);
+    int num = (rand() % INT_MAX);
     arr[i] = num;
   }
 }
