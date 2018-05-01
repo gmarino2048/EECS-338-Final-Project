@@ -36,9 +36,9 @@ bubblesort(int[] array, int threadCount);*/
 #include <limits.h>
 
 //Global variables containing array that will be modified and overwritten throughout the testing
+int *arr;
 
-
-int *RandomArray(int arraySize);
+void RandomArray(int arraySize);
 int validate (int array[], int size);
 int writeout (int threads, int size, double quick, double merge, double bubble);
 
@@ -47,17 +47,17 @@ void mergesort(int *arr, int threads, int size);
 void bubblesort(int *arr, int threads, int size);
 
 
-int *RandomArray(int arraySize){
+void RandomArray(int arraySize){
 	int i = 0;
-  int array[arraySize];
+  arr = malloc(arraySize * sizeof(int));
 	srand(time(0));
 	for(i = 0; i < arraySize; i++){
 		int number = (rand() % INT_MAX);
 		//printf("%d", number);
-		array[i] = number;
+		arr[i] = number;
 	}
 
-  return array;
+   array;
 }
 
 // The main method has yet to be implemented because the other methods are not yet complete
