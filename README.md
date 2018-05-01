@@ -172,17 +172,23 @@ This is the classic bubblesort algorithm for a single process. We are using it t
 
 `void quicksort(int array[], int lowIndex, int highIndex)`
 
+This function of `quicksort_single_process.c` is the classic quicksort algorithm for a single process. Recursively calls itself and splits the array in half at a partition index. Takes an `array[]` and sorts the array ascending. 
+
 `int partition(int array[], int lowIndex, int highIndex)`
+
+This function of `quicksort_single_process.c` determines the partition index to be utilized in the `void quicksort(int array[] int lowIndex, int highIndex)` function. 
 
 `int swap(int *one, int *two)`
 
+This function is a helper method that swaps two values within an array.
+
 ##### Summary of Data Types
 
-
+The file `quicksort_single_process.c` contains a single array as its data structure. It will continuously swap values in this array through the functions discussed in the previous section until the array is sorted ascendingly. 
 
 ##### Sample Output
 
-
+This file gives no relevant output.
 
 ### main.c
 
