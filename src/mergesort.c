@@ -58,6 +58,7 @@ int *randomArray (int size){
     int num = (rand() % INT_MAX);
     arr[i] = num;
   }
+  printf("added");
 
   return arr;
 }
