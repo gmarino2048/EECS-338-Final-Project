@@ -40,7 +40,7 @@ bubblesort(int[] array, int threadCount);*/
 
 int *RandomArray(int arraySize);
 int validate (int array[], int size);
-int writeout (int threads, int size double quick, double merge, double bubble);
+int writeout (int threads, int size, double quick, double merge, double bubble);
 
 void quicksort(int *arr, int threads, int size);
 void mergesort(int *arr, int threads, int size);
@@ -167,5 +167,5 @@ int validate (int *arr, int size){
 
 // The writeout method has not yet been implemented
 int writeout (int threads, int size, double quick, double merge, double bubble) {
-
+  return 0;
 }
