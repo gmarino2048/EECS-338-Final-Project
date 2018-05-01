@@ -216,6 +216,10 @@ void *bubble (void *arguments){
       sem_wait(&srmutex);
       wait = reset;
       sem_post(&srmutex);
+
+      sem_wait(&stopmutex);
+      thisStop = stop;
+      sem_post(&stopmutex);
     }
   }
   pthread_exit(NULL);
