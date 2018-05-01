@@ -69,7 +69,7 @@ int main(){
     for (int length = 1; length < 1000000000; length = length * 10){
       // Perform with length * 1
       int size = length * 1;
-      int *arr = RandomArray(size);
+      int *RandomArray(size);
 
       // Start time here
       quicksort(arr, threads, size);
@@ -78,7 +78,7 @@ int main(){
         exit(-1);
       }
 
-      arr = RandomArray(size);
+      RandomArray(size);
       // Start time here
       mergesort(arr, threads, size);
       // End time, store seconds as double
@@ -86,7 +86,7 @@ int main(){
         exit(-1);
       }
 
-      arr = RandomArray(size);
+      RandomArray(size);
       // Start time here
       bubblesort(arr, threads, size);
       // End time, store seconds as double
@@ -97,7 +97,7 @@ int main(){
 
       // Perform with length * 2
       size = length * 2;
-      arr = RandomArray(size);
+      RandomArray(size);
 
       // Start time here
       quicksort(arr, threads, size);
@@ -106,7 +106,7 @@ int main(){
         exit(-1);
       }
 
-      arr = RandomArray(size);
+      RandomArray(size);
       // Start time here
       mergesort(arr, threads, size);
       // End time, store seconds as double
@@ -114,7 +114,7 @@ int main(){
         exit(-1);
       }
 
-      arr = RandomArray(size);
+      RandomArray(size);
       // Start time here
       bubblesort(arr, threads, size);
       // End time, store seconds as double
@@ -125,7 +125,7 @@ int main(){
 
       // Perform with length * 5
       size = length * 5;
-      arr = RandomArray(size);
+      RandomArray(size);
 
       // Start time here
       quicksort(arr, threads, size);
@@ -134,7 +134,7 @@ int main(){
         exit(-1);
       }
 
-      arr = RandomArray(size);
+      RandomArray(size);
       // Start time here
       mergesort(arr, threads, size);
       // End time, store seconds as double
@@ -142,7 +142,7 @@ int main(){
         exit(-1);
       }
 
-      arr = RandomArray(size);
+      RandomArray(size);
       // Start time here
       bubblesort(arr, threads, size);
       // End time, store seconds as double
