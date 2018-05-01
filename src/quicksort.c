@@ -27,8 +27,8 @@ int partition(int arr[], int start, int stop);
 void swap(int arr[], int index1, int index2);
 
 int main (int argc, char *argv[]) {
-  int threads = atoi(argv[0]);
-  int size = atoi(argv[1]);
+  int threads = atoi(argv[1]);
+  int size = atoi(argv[2]);
 
   int *arr = randomArray(size);
   quicksort(arr, threads, size);
@@ -42,6 +42,9 @@ int *randomArray (int size){
     int num = (rand() % INT_MAX);
     arr[i] = num;
   }
+
+
+  printf("added");
 
   return arr;
 }
