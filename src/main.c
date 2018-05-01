@@ -40,7 +40,12 @@ bubblesort(int[] array, int threadCount);*/
 
 int *RandomArray(int arraySize);
 int validate (int array[], int size);
-int writeout (struct data arguments);
+int writeout (int threads, int size double quick, double merge, double bubble);
+
+void quicksort(int *arr, int threads, int size);
+void mergesort(int *arr, int threads, int size);
+void bubblesort(int *arr, int threads, int size);
+
 
 int *RandomArray(int arraySize){
 	int i = 0;
@@ -52,7 +57,7 @@ int *RandomArray(int arraySize){
 		array[i] = number;
 	}
 
-  return array
+  return array;
 }
 
 // The main method has yet to be implemented because the other methods are not yet complete
@@ -61,7 +66,7 @@ int main(){
 
   //Perform on multiple threads
 	for (int threads = 1; threads <= 64; threads = threads * 2){
-    for (int length = 1; lenth < 1000000000; length = length * 10){
+    for (int length = 1; length < 1000000000; length = length * 10){
       // Perform with length * 1
       int size = length * 1;
       int *arr = RandomArray(size);
