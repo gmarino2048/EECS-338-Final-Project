@@ -46,8 +46,6 @@ int *RandomArray(int arraySize){
 	int i = 0;
   int array[arraySize];
 	srand(time(0));
-	size = arraySize;
-	printf("%d\n",size);
 	for(i = 0; i < size; i++){
 		int number = (rand() % INT_MAX);
 		//printf("%d", number);
