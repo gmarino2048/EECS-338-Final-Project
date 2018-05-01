@@ -81,7 +81,7 @@ void *mergesort_setup (void *arguments){
 
   struct Args args = *((struct Args *) arguments);
 
-  if (args.start < (args.stop - 1)){
+  if (args.start < args.stop){
     int split = (args.start + (args.stop - 1)) / 2;
 
     sem_wait(&mutex);
