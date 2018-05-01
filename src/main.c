@@ -93,8 +93,8 @@ int main(){
       // Writeout here
 
       // Perform with length * 2
-      int size = length * 2;
-      int *arr = RandomArray(size);
+      size = length * 2;
+      arr = RandomArray(size);
 
       // Start time here
       quicksort(arr, threads, size);
@@ -121,8 +121,8 @@ int main(){
       // Writeout here
 
       // Perform with length * 5
-      int size = length * 5;
-      int *arr = RandomArray(size);
+      size = length * 5;
+      arr = RandomArray(size);
 
       // Start time here
       quicksort(arr, threads, size);
