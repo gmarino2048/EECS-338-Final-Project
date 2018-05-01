@@ -53,6 +53,8 @@ int *randomArray (int size){
     int num = (rand() % INT_MAX);
     arr[i] = num;
   }
+
+  return arr;
 }
 
 void mergesort(int *arr, int threads, int size){
