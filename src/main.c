@@ -30,27 +30,21 @@ mergesort(int[] array, int threadCount);
 bubblesort(int[] array, int threadCount);*/
 
 #include <stdlib.h>
-#include<stdio.h>
-#include<unistd.h>
-#include<time.h>
-#include<limits.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <time.h>
+#include <limits.h>
 
 //Global variables containing array that will be modified and overwritten throughout the testing
-int array[N];
-int size;
 
-struct data {
-  int *arr;
-  int start;
-  int stop;
-};
 
 void RandomArray(int arraySize);
 int validate (int array[], int size);
 int writeout (struct data arguments);
 
-void RandomArray(int arraySize){
+int *RandomArray(int arraySize){
 	int i = 0;
+  int array[arraySize];
 	srand(time(0));
 	size = arraySize;
 	printf("%d\n",size);
@@ -59,25 +53,117 @@ void RandomArray(int arraySize){
 		//printf("%d", number);
 		array[i] = number;
 	}
+
+  return array
 }
 
 // The main method has yet to be implemented because the other methods are not yet complete
 int main(){
 	//struct timeval start_time, stop_time, elapsed_time;
-	RandomArray(5);
-	int i;
-	for(i = 0; i < size; i++){
-		printf("%d,", array[i]);
-	}
+
+  //Perform on multiple threads
+	for (int threads = 1; threads <= 64; threads = threads * 2){
+    for (int length = 1; lenth < 1000000000; length = length * 10){
+      // Perform with length * 1
+      int size = length * 1;
+      int *arr = RandomArray(size);
+
+      // Start time here
+      quicksort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+
+      arr = RandomArray(size);
+      // Start time here
+      mergesort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+
+      arr = RandomArray(size);
+      // Start time here
+      bubblesort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+      // Writeout here
+
+      // Perform with length * 2
+      int size = length * 2;
+      int *arr = RandomArray(size);
+
+      // Start time here
+      quicksort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+
+      arr = RandomArray(size);
+      // Start time here
+      mergesort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+
+      arr = RandomArray(size);
+      // Start time here
+      bubblesort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+      // Writeout here
+
+      // Perform with length * 5
+      int size = length * 5;
+      int *arr = RandomArray(size);
+
+      // Start time here
+      quicksort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+
+      arr = RandomArray(size);
+      // Start time here
+      mergesort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+
+      arr = RandomArray(size);
+      // Start time here
+      bubblesort(arr, threads, size);
+      // End time, store seconds as double
+      if (validate(arr, size) < 0){
+        exit(-1);
+      }
+      // Writeout here
+    }
+  }
 }
 
 
 // The validate method has not yet been implemented
-int validate (int array[], int size){
+int validate (int *arr, int size){
+  for (int i = 0; i < size - 1; i++){
+    if (arr[i] > arr[i+1]){
+      return -1;
+    }
+  }
 
+  return 0;
 }
 
 // The writeout method has not yet been implemented
-int writeout (struct data arguments) {
+int writeout (int threads, int size double quick, double merge, double bubble) {
 
 }
