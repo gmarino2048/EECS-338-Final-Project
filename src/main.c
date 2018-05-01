@@ -49,6 +49,7 @@ void bubblesort(int *arr, int threads, int size);
 
 void RandomArray(int arraySize){
 	int i = 0;
+  free(arr);
   arr = malloc(arraySize * sizeof(int));
 	srand(time(0));
 	for(i = 0; i < arraySize; i++){
@@ -56,8 +57,6 @@ void RandomArray(int arraySize){
 		//printf("%d", number);
 		arr[i] = number;
 	}
-
-   array;
 }
 
 // The main method has yet to be implemented because the other methods are not yet complete
