@@ -38,7 +38,7 @@ bubblesort(int[] array, int threadCount);*/
 //Global variables containing array that will be modified and overwritten throughout the testing
 
 
-void RandomArray(int arraySize);
+int *RandomArray(int arraySize);
 int validate (int array[], int size);
 int writeout (struct data arguments);
 
