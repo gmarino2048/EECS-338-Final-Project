@@ -2,6 +2,8 @@
 # include <stdlib.h>
 # include <semaphore.h>
 # include <pthread.h>
+# include <sys/time.h>
+# include <limits.h>
 
 int stop;
 
@@ -24,9 +26,59 @@ struct Args {
   int size;
 };
 
+int *randomArray (long size);
 void bubblesort(int *arr, int threads, int size);
 void *bubble (void *args);
 void swap(int *arr, int i, int j);
+
+
+int main (int argc, char* argv[]) {
+
+  //Initialize the semaphores
+  if (sem_init(&srmutex, 0, 1) < 0){
+    printf ("Could not initialize semaphore\n");
+    exit(-1);
+  }
+  if (sem_init(&stopmutex, 0, 1) < 0){
+    printf ("Could not initialize semaphore\n");
+    exit(-1);
+  }
+  if (sem_init(&scmutex, 0, 1) < 0){
+    printf ("Could not initialize semaphore\n");
+    exit(-1);
+  }
+
+  struct timeval start_time, stop_time, elapsed_time;
+
+  for (int threads = 1; threads < 128; threads = threads *2){
+    for (int size = 1; size < 2048; size = size *2){
+      int *arr = randomArray(size);
+
+      gettimeofday(&start_time,NULL);
+      bubblesort(arr, threads, size);
+      gettimeofday(&stop_time,NULL);
+
+      timersub(&stop_time, &start_time, &elapsed_time);
+      printf("%d,%d,%f\n", threads, size, elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+    }
+  }
+
+  sem_destroy(&srmutex);
+  sem_destroy(&scmutex);
+  sem_destroy(&stopmutex);
+}
+
+int *randomArray (long size){
+  int *arr = malloc(size * sizeof(int));
+  srand(time(0));
+
+  for (long i = 0; i < size; i++){
+    int num = (rand() % INT_MAX);
+    arr[i] = num;
+  }
+
+  return arr;
+}
 
 // A function to implement bubble sort
 // This method is not yet complete
@@ -43,29 +95,14 @@ void bubblesort(int *arr, int threads, int size){
      actualThreads = threads;
    }
 
+   if (actualThreads == 0){
+     return;
+   }
+
    // Initialize global variables
    stop = 0;
    reset = 0;
    completed = 0;
-
-   //Initialize the semaphores
-   if (sem_init(&srmutex, 0, 1) < 0){
-     printf ("Could not initialize semaphore\n");
-     exit(-1);
-   }
-   if (sem_init(&stopmutex, 0, 1) < 0){
-     printf ("Could not initialize semaphore\n");
-     exit(-1);
-   }
-   if (sem_init(&srmutex, 0, 1) < 0){
-     printf ("Could not initialize semaphore\n");
-     exit(-1);
-   }
-   if (sem_init(&scmutex, 0, 1) < 0){
-     printf ("Could not initialize semaphore\n");
-     exit(-1);
-   }
-
    // Allocate the memory
    pthreads = malloc(actualThreads * sizeof(pthread_t));
    attributes = malloc(actualThreads * sizeof(pthread_attr_t));
@@ -107,9 +144,9 @@ void bubblesort(int *arr, int threads, int size){
      reset = !reset;
      sem_post(&srmutex);
 
-     sem_wait(&srmutex);
+     sem_wait(&stopmutex);
      thisStop = stop;
-     sem_post(&srmutex);
+     sem_post(&stopmutex);
    }
 
    for (int i = 0; i < actualThreads; i++) {
@@ -127,9 +164,9 @@ void *bubble (void *arguments){
   int streak;
   int thisStop;
 
-  sem_wait(&srmutex);
+  sem_wait(&stopmutex);
   thisStop = stop;
-  sem_post(&srmutex);
+  sem_post(&stopmutex);
 
   while (thisStop == 0){
 
