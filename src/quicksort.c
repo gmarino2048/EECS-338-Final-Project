@@ -131,18 +131,13 @@ void *quicksort_setup (void *arguments){
 
 partition (int *arr, long low, long high)
 {
-    // pivot (Element to be placed at right position)
     int pivot = arr[high];
 
-    long i = (low - 1);  // Index of smaller element
+    long i = (low - 1);
 
-    for (long j = low; j <= high- 1; j++)
-    {
-        // If current element is smaller than or
-        // equal to pivot
-        if (arr[j] <= pivot)
-        {
-            i++;    // increment index of smaller element
+    for (long j = low; j <= high- 1; j++){
+        if (arr[j] <= pivot){
+            i++;
             swap(arr, i, j);
         }
     }
