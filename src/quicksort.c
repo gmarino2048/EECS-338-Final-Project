@@ -36,6 +36,8 @@ int main () {
       //Get time
 
       printf("%d,%d,\n", threads, list_size);
+
+      free (arr);
     }
   }
 }
