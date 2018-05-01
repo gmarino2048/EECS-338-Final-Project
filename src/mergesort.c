@@ -37,8 +37,6 @@ int main (int argc, char* argv[]) {
 
   struct timeval start_time, stop_time, elapsed_time;
 
-  printf("%s, %s", argv[1], argv[2]);
-
   int threads = atoi(argv[1]);
   int size = atoi(argv[2]);
 
