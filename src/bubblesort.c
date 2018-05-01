@@ -14,7 +14,6 @@ int completed;
 int sorted = 0;
 
 pthread_t *pthreads;
-pthread_attr_t *attributes;
 
 sem_t srmutex;
 sem_t stopmutex;
@@ -22,8 +21,8 @@ sem_t scmutex;
 
 struct Args {
   int *arr;
-  int position;
-  int size;
+  long position;
+  long size;
 };
 
 int *randomArray (long size);
@@ -51,7 +50,7 @@ int main (int argc, char* argv[]) {
   struct timeval start_time, stop_time, elapsed_time;
 
   for (int threads = 1; threads < 128; threads = threads *2){
-    for (int size = 1; size < 2048; size = size *2){
+    for (int size = 1; size < 1000000; size = size *2){
       int *arr = randomArray(size);
 
       gettimeofday(&start_time,NULL);
@@ -105,16 +104,16 @@ void bubblesort(int *arr, int threads, int size){
    completed = 0;
    // Allocate the memory
    pthreads = malloc(actualThreads * sizeof(pthread_t));
-   attributes = malloc(actualThreads * sizeof(pthread_attr_t));
 
    struct Args argsList[actualThreads];
 
    // Instantiate the pthreads
-   for (int i = 0; i < actualThreads; i++) {
+   int i;
+   for (i = 0; i < actualThreads; i++) {
      argsList[i].arr = arr;
      argsList[i].position = i * 2;
      argsList[i].size = size;
-     pthread_create(&pthreads[i], &attributes[i], bubble, (void *) &argsList[i]);
+     pthread_create(&pthreads[i], NULL, bubble, (void *) &argsList[i]);
    }
 
    // Bubble Controller
@@ -154,14 +153,13 @@ void bubblesort(int *arr, int threads, int size){
    }
 
    free(pthreads);
-   free(attributes);
 }
 
 // This method has yet to be implemented
 void *bubble (void *arguments){
   struct Args args = *((struct Args *) arguments);
 
-  int streak;
+  long streak;
   int thisStop;
 
   sem_wait(&stopmutex);
