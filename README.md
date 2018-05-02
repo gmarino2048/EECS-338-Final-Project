@@ -332,7 +332,7 @@ N = 2097152, Time = 1.491803
 
 #### Noah Houpt
 
-So far on the project I have implemented the bubblesort.c algorithm, the mergesort.c algorithm, and the swap method of quicksort.c. Additionally I have wrote the randomArray() method of the main.c file, and commented on the main.c file. Between this submission and the submission for the final project, I plan on completing the mergesort.c algorithm as well as data analysis of the main.c file's output. I plan to utilize Mathematica as a way to visualize the data if possible. 
+I completed the mergesort_single_process.c, bubblesort_single_process.c, and quicksort_single_process.c in their entirety in order to have a sort of control in our experiment. I also contributed a significant amount to our readme file. Additionally I worked to create the makefile. I helped Guy with quicksort.c, mergesort.c, and bubblesort.c with errors. We had significant issues with segmentation faults, so bug fixing took up a significant portion of our time with this project, I helped with fixing these errors. 
 
 #### Guy Marino
 
