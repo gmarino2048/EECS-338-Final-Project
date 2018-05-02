@@ -1,8 +1,6 @@
 /* Noah Houpt and Guy Marino EECS 338 Final Project
 QuickSort implementation for testing various lengths of array
-inputs and number of pthreads in use. Source of merge sort
-algorithm is from mycodeschool's Github at URL:
-https://gist.github.com/mycodeschool/9678029 */
+inputs and number of pthreads in use. */
 
 # include <stdio.h>
 # include <stdlib.h>
