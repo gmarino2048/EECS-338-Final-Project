@@ -83,8 +83,6 @@ int *randomArray (long size){
   return arr;
 }
 
-// A function to implement bubble sort
-// This method is not yet complete
 void bubblesort(int *arr, int threads, int size){
    // Calculate out the number of bubbles to use
    int maxThreads = (size - 1) / 2;
@@ -159,7 +157,6 @@ void bubblesort(int *arr, int threads, int size){
    free(pthreads);
 }
 
-// This method has yet to be implemented
 void *bubble (void *arguments){
   struct Args args = *((struct Args *) arguments);
 
