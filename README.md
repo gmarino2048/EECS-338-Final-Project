@@ -91,7 +91,7 @@ Method used to create an array of size `size` filled with random values between 
 
 `int main (int argc, char* argv[])`
 
-Method used to test various values of NUM_THREADS and array size. Will test threads between 1 and 128 and increments by threads * 2. Will test array sizes between 1 and 20000 and increments by size *2. 
+Method used to test various values of NUM_THREADS and array size. Will test threads between 1 and 128 and increments by threads * 2. Will test array sizes between 1 and 2500 and increments by size *2. 
 
 ##### Summary of Data Types
 
@@ -249,7 +249,7 @@ Method used to create an array of size `size` filled with random values between 
 
 `int main()`
 
-Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 20000. The times will be compared to our multi-threaded algorithm.
+Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 2500. The times will be compared to our multi-threaded algorithm.
 
 ##### Summary of Data Types
 
