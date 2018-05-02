@@ -51,7 +51,7 @@ Due to limited space on the list, however, the maximum number of threads which c
 
 ##### Summary of functions
 
-`int[] bubblesort (int arr[], int threads, int elements)`
+`int[] bubblesort (int *arr, int threads, int size)`
 
 This function will be a wrapper function which will allow the bubble sort method to be called quickly and easily from the main script. This function will also be responsible for calculating the thread requirements for each list and instantiating that many threads.
 
@@ -59,9 +59,17 @@ This function will be a wrapper function which will allow the bubble sort method
 
 This function will be run by each individual thread. The bubble function will be responsible for comparing and swapping values, as well as waiting until all threads have completed before incrementing its thread's position in the list.
 
-`void swap (int arr[], int index1, int index2)`
+`void swap (int *arr, int i, int j)`
 
 This function's sole responsibility is to swap the values at index1 and index2 in the array. Using these three functions, we can implement a version of bubblesort which uses multiple threads to decrease the amount of work that needs to be done.
+
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
+`int main (int argc, char* argv[])`
+
+Method used to test various values of NUM_THREADS and array size. Will test threads between 1 and 128 and increments by threads * 2. Will test array sizes between 1 and 20000 and increments by size *2. 
 
 ##### Summary of Data Types
 
@@ -75,7 +83,17 @@ Since we are incrementing each thread's position at the same time, we do not nee
 
 ##### Sample Output
 
-Bubble Sort returns no output.
+1,1,0.000000
+1,2,0.000001
+1,4,0.005199
+1,8,0.000293
+1,16,0.001427
+1,32,0.002988
+1,64,0.012255
+1,128,0.052896
+1,256,0.203736
+1,512,0.889829
+1,1024,3.605456
 
 ### quicksort.c
 
