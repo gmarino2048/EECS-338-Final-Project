@@ -120,19 +120,19 @@ Quick sort of the list works in a way such that after every partition is created
 
 ##### Summary of functions
 
-`int[] quicksort(int arr[], int threads, int size)`
+`int[] quicksort(int *arr, int threads, long size)`
 
-This function will be a wrapper class designed to be called in the main.c file.
+This function will be a wrapper class designed to be called in the main.c file. Longs passed to avoid segmentation faults. 
 
-`void swap(int list[], int index1, int index2)`
+`void swap(int *arr, long index1, long index2)`
 
 The swap function of the "quicksort.c" file can take an array "list[]", and two indexes; "index1", and "index2". This method will then modify the "list[]" variable in such a way that the element at "index1" swaps with the element at "index2" of the list.
 
-`void partition(int arr[], int partitionIndex)`
+`int partition(int *arr, long start, long stop)`
 
 The partition function of the "quicksort.c" file can take an array "arr[]" and a partition index. The list will then partition at the index, sending one of of the array to be sorted by the parent thread recursively, and the other half of the array to be sorted recursively by the child. This will continue until either the maximum number of the threads are reached, or a section of the list is sorted. The parent will wait for its child, and this will cascade until the list is completley sorted.
 
- `int quicksort_setup(int list[], int maxThreads)`
+ `int quicksort_setup(void *arguments)`
 
  This method of the "quicksort.c" file is used to ensure that the maximum number of threads are not in use.
  
