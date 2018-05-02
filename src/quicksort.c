@@ -1,3 +1,6 @@
+/*Noah Houpt and Guy Marino's implementation of 
+quicksort for multiprocesses. Can test using different
+number of threads and array sizes. */
 
 # include <stdio.h>
 # include <stdlib.h>
