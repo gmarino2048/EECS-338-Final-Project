@@ -17,17 +17,25 @@ This method will allow thread reuse while also ensuring that there is a maximal 
 
 ##### Summary of Functions
 
-`int[] mergesort(int arr[], int size, int num_threads)`
+`void mergesort(int *arr, long threads, long size)`
 
-This function will mergesort the list using the function `mergesort_helper`. This function is a wrapper funciton based designed to sort the entire array.
+This function will mergesort the list using the function `mergesort_helper`. This function is a wrapper funciton based designed to sort the entire array. A long is passed for the threads and size arguments to avoid segmentation faults. 
 
-`void *mergesort_helper(void *args)`
+`void *mergesort_helper(void *arguments)`
 
 This function will be called by each child thread and will be responsible for splitting each half and then merging the two halves together using `merge`. The `mergesort_helper` function will see if it can instantiate a new thread, if it can it will add the thread to the array of threads and call `mergesort_helper` on the first part of the list while the child thread sorts the other.
 
-`void merge(int arr[], int first, int second, int stop)`
+`void merge(int *arr, long start, long middle, long stop)`
 
-The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
+The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted. Longs are passed for the 2nd, 3rd, and 4th arguments to avoid segmentation faults.
+
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
+`int main(int argc, char* argv[])`
+
+Main method will test the file when executed and output number of threads, size of array, and time taken to sort. It will do this for threads between 1 and 128, incremented by thread_count * 2, and array sizes between 1 and 100000000, incremented by arraySize * 2.
 
 ##### Summary of Data Types
 
@@ -39,7 +47,21 @@ The only additional data type will be the struct used to pass information from t
 
 ##### Sample Output
 
-Merge Sort returns no output.
+1,1,0.000202
+1,2,0.000161
+1,4,0.000151
+1,8,0.000159
+1,16,0.000160
+1,32,0.000152
+1,64,0.000148
+1,128,0.000059
+1,256,0.000087
+1,512,0.000125
+1,1024,0.000265
+1,2048,0.000450
+1,4096,0.000656
+1,8192,0.001443
+1,16384,0.002779
 
 ### bubblesort.c
 
@@ -51,7 +73,7 @@ Due to limited space on the list, however, the maximum number of threads which c
 
 ##### Summary of functions
 
-`int[] bubblesort (int arr[], int threads, int elements)`
+`int[] bubblesort (int *arr, int threads, int size)`
 
 This function will be a wrapper function which will allow the bubble sort method to be called quickly and easily from the main script. This function will also be responsible for calculating the thread requirements for each list and instantiating that many threads.
 
@@ -59,9 +81,17 @@ This function will be a wrapper function which will allow the bubble sort method
 
 This function will be run by each individual thread. The bubble function will be responsible for comparing and swapping values, as well as waiting until all threads have completed before incrementing its thread's position in the list.
 
-`void swap (int arr[], int index1, int index2)`
+`void swap (int *arr, int i, int j)`
 
 This function's sole responsibility is to swap the values at index1 and index2 in the array. Using these three functions, we can implement a version of bubblesort which uses multiple threads to decrease the amount of work that needs to be done.
+
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
+`int main (int argc, char* argv[])`
+
+Method used to test various values of NUM_THREADS and array size. Will test threads between 1 and 128 and increments by threads * 2. Will test array sizes between 1 and 2500 and increments by size *2. 
 
 ##### Summary of Data Types
 
@@ -75,7 +105,17 @@ Since we are incrementing each thread's position at the same time, we do not nee
 
 ##### Sample Output
 
-Bubble Sort returns no output.
+1,1,0.000000
+1,2,0.000001
+1,4,0.005199
+1,8,0.000293
+1,16,0.001427
+1,32,0.002988
+1,64,0.012255
+1,128,0.052896
+1,256,0.203736
+1,512,0.889829
+1,1024,3.605456
 
 ### quicksort.c
 
@@ -84,21 +124,29 @@ Quick sort of the list works in a way such that after every partition is created
 
 ##### Summary of functions
 
-`int[] quicksort(int arr[], int threads, int size)`
+`int[] quicksort(int *arr, int threads, long size)`
 
-This function will be a wrapper class designed to be called in the main.c file.
+This function will be a wrapper class designed to be called in the main.c file. Longs passed to avoid segmentation faults. 
 
-`void swap(int list[], int index1, int index2)`
+`void swap(int *arr, long index1, long index2)`
 
 The swap function of the "quicksort.c" file can take an array "list[]", and two indexes; "index1", and "index2". This method will then modify the "list[]" variable in such a way that the element at "index1" swaps with the element at "index2" of the list.
 
-`void partition(int arr[], int partitionIndex)`
+`int partition(int *arr, long start, long stop)`
 
 The partition function of the "quicksort.c" file can take an array "arr[]" and a partition index. The list will then partition at the index, sending one of of the array to be sorted by the parent thread recursively, and the other half of the array to be sorted recursively by the child. This will continue until either the maximum number of the threads are reached, or a section of the list is sorted. The parent will wait for its child, and this will cascade until the list is completley sorted.
 
- `int quicksort_setup(int list[], int maxThreads)`
+ `int quicksort_setup(void *arguments)`
 
  This method of the "quicksort.c" file is used to ensure that the maximum number of threads are not in use.
+ 
+ `int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
+`int main(int argc, char* argv[])`
+
+Main method will test the file when executed and output number of threads, size of array, and time taken to sort. It will do this for threads between 1 and 128, incremented by thread_count * 2, and array sizes between 1 and 100000000, incremented by arraySize * 2.
 
 ##### Summary of Data Types
 
@@ -110,7 +158,26 @@ The only data type that we created for this file is the struct `params` that wil
 
 ##### Sample Output
 
-Quick Sort returns no output.
+1,1,0.000246
+1,2,0.000162
+1,4,0.000137
+1,8,0.000107
+1,16,0.000125
+1,32,0.000101
+1,64,0.000069
+1,128,0.000084
+1,256,0.000092
+1,512,0.000188
+1,1024,0.000206
+1,2048,0.000297
+1,4096,0.000593
+1,8192,0.001565
+1,16384,0.002851
+1,32768,0.006150
+1,65536,0.014101
+1,131072,0.029801
+1,262144,0.057098
+1,524288,0.112673
 
 ### mergesort_single_process.c
 
@@ -126,6 +193,10 @@ This function contained in `mergesort_single_process.c` is used as the main call
 
 This function of the `mergesort_single_process.c` file merges the array back together after it has been split based off which value is larger. It does this by utilizing the array `temp[]` to store the values of `array[]` in the desired order. At the end of the algorithm, the updated values in `temp[]` are placed in `array[]`, and `temp[]` is emptied to ensure no overflow errors. Longs are passed to avoid segmentation faults.
 
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
 `int main()`
 
 Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 1000000. The times will be compared to our multi-threaded algorithm.
@@ -136,27 +207,26 @@ Two arrays are utilized in this file, `temp[]` and `array[]`. `array[]` contains
 
 ##### Sample Output
 
-N = 1, Time = 0.000000
-N = 2, Time = 0.000001
-N = 4, Time = 0.000000
-N = 8, Time = 0.000002
-N = 16, Time = 0.000002
-N = 32, Time = 0.000005
-N = 64, Time = 0.000009
-N = 128, Time = 0.000018
-N = 256, Time = 0.000035
-N = 512, Time = 0.000076
-N = 1024, Time = 0.000161
-N = 2048, Time = 0.000353
-N = 4096, Time = 0.000757
-N = 8192, Time = 0.001618
-N = 16384, Time = 0.003440
-N = 32768, Time = 0.007403
-N = 65536, Time = 0.015791
-N = 131072, Time = 0.044796
-N = 262144, Time = 0.129047
-N = 524288, Time = 0.270556
-N = 1048576, Time = 0.485138
+1,0.000000
+2,0.000001
+4,0.000001
+8,0.000001
+16,0.000002
+32,0.000004
+64,0.000008
+128,0.000015
+256,0.000029
+512,0.000066
+1024,0.000145
+2048,0.000306
+4096,0.000637
+8192,0.001333
+16384,0.002948
+32768,0.005698
+65536,0.014336
+131072,0.028031
+262144,0.057995
+524288,0.121642
 
 ### bubblesort_single_process.c
 
@@ -172,9 +242,13 @@ This method of the `mergesort_single_process.c` file will sort a list of values 
 
 This method of the `mergesort_single_process.c` file is a helper method for the `bubblesort(int array[], long index)` method. It is used to swap the value of index1, and index2. Utilized primarily to make the code more readable, longs are passed to avoid segmentation faults.
 
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
 `int main()`
 
-Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 1000000. The times will be compared to our multi-threaded algorithm.
+Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 2500. The times will be compared to our multi-threaded algorithm.
 
 ##### Summary of Data Types
 
@@ -182,21 +256,18 @@ This function operates on only a single array. Since it is a single process func
 
 ##### Sample Output
 
-N = 1, Time = 0.000001
-N = 2, Time = 0.000002
-N = 4, Time = 0.000002
-N = 8, Time = 0.000003
-N = 16, Time = 0.000006
-N = 32, Time = 0.000016
-N = 64, Time = 0.000049
-N = 128, Time = 0.000175
-N = 256, Time = 0.000618
-N = 512, Time = 0.002272
-N = 1024, Time = 0.008868
-N = 2048, Time = 0.036607
-N = 4096, Time = 0.117366
-N = 8192, Time = 0.478801
-N = 16384, Time = 2.027349
+1,0.000001
+2,0.000000
+4,0.000001
+8,0.000001
+16,0.000003
+32,0.000007
+64,0.000020
+128,0.000067
+256,0.000211
+512,0.000691
+1024,0.002768
+2048,0.012035
 
 ### quicksort_single_process.c
 
@@ -216,6 +287,10 @@ This function of `quicksort_single_process.c` determines the partition index to 
 
 This function is a helper method that swaps two values within an array. Longs are passed to avoid segmentation faults.
 
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
 `int main()`
 
 Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 100000000. The times will be compared to our multi-threaded algorithm.
@@ -226,37 +301,30 @@ The file `quicksort_single_process.c` contains a single array as its data struct
 
 ##### Sample Output
 
-N = 1, Time = 0.000000
-N = 2, Time = 0.000000
-N = 4, Time = 0.000001
-N = 8, Time = 0.000002
-N = 16, Time = 0.000002
-N = 32, Time = 0.000004
-N = 64, Time = 0.000007
-N = 128, Time = 0.000015
-N = 256, Time = 0.000033
-N = 512, Time = 0.000066
-N = 1024, Time = 0.000147
-N = 2048, Time = 0.000316
-N = 4096, Time = 0.000705
-N = 8192, Time = 0.001547
-N = 16384, Time = 0.003381
-N = 32768, Time = 0.007348
-N = 65536, Time = 0.015470
-N = 131072, Time = 0.049027
-N = 262144, Time = 0.106824
-N = 524288, Time = 0.248797
-N = 1048576, Time = 0.442365
-N = 2097152, Time = 1.491803
+1,0.000001
+2,0.000001
+4,0.000000
+8,0.000015
+16,0.000001
+32,0.000017
+64,0.000006
+128,0.000025
+256,0.000038
+512,0.000054
+1024,0.000114
+2048,0.000261
+4096,0.000661
+8192,0.001302
+16384,0.002762
+32768,0.006269
+65536,0.012259
 
 ## Work Distribution
 
 #### Noah Houpt
 
-So far on the project I have implemented the bubblesort.c algorithm, the mergesort.c algorithm, and the swap method of quicksort.c. Additionally I have wrote the randomArray() method of the main.c file, and commented on the main.c file. Between this submission and the submission for the final project, I plan on completing the mergesort.c algorithm as well as data analysis of the main.c file's output. I plan to utilize Mathematica as a way to visualize the data if possible. 
+I completed the mergesort_single_process.c, bubblesort_single_process.c, and quicksort_single_process.c in their entirety in order to have a sort of control in our experiment. I also contributed a significant amount to our readme file. Additionally I worked to create the makefile. I helped Guy with quicksort.c, mergesort.c, and bubblesort.c with errors. We had significant issues with segmentation faults, so bug fixing took up a significant portion of our time with this project, I helped with fixing these errors. 
 
 #### Guy Marino
 
-I primarily worked on the report for the beta, as I was able to implement the merge and bubble sort sections as well as work on the main section and create all of the images used in the report. I also worked on the quicksort.c file rudimentarily and created the makefile to generate the executable file for this report.
-
-Moving forward, I will bring multithreading into quicksort and bubble sort, as it is not currently supported. I am also going to attempt to make 3D plots of the data in python, if time permits.
+I completed the mergesort.c, quicksort.c, and bubblesort.c files. I also helped with the makefile. I modified the readme also. I implemented the multi-threaded processes in almost their entirety outside of bug fixing.

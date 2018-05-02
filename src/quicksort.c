@@ -1,3 +1,6 @@
+/*Noah Houpt and Guy Marino's implementation of 
+quicksort for multiprocesses. Can test using different
+number of threads and array sizes. */
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -127,7 +130,7 @@ void *quicksort_setup (void *arguments){
   return 0;
 }
 
-partition (int *arr, long low, long high)
+int partition (int *arr, long low, long high)
 {
     int pivot = arr[high];
 
