@@ -33,6 +33,10 @@ The merge function merges the lists from first to second, and then from second t
 
 Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
 
+`int main(int argc, char* argv[])`
+
+Main method will test the file when executed and output number of threads, size of array, and time taken to sort. It will do this for threads between 1 and 128, incremented by thread_count * 2, and array sizes between 1 and 100000000, incremented by arraySize * 2.
+
 ##### Summary of Data Types
 
 Since the function operates separately on different parts of the array, semaphores are unnecessary. Instead, we will be using an array of pthread tid's and an array of pthread attribute structs to operate on separate parts of the array.
@@ -139,6 +143,10 @@ The partition function of the "quicksort.c" file can take an array "arr[]" and a
  `int *randomArray (long size)`
 
 Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
+`int main(int argc, char* argv[])`
+
+Main method will test the file when executed and output number of threads, size of array, and time taken to sort. It will do this for threads between 1 and 128, incremented by thread_count * 2, and array sizes between 1 and 100000000, incremented by arraySize * 2.
 
 ##### Summary of Data Types
 
