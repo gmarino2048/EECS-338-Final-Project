@@ -174,7 +174,7 @@ This method of the `mergesort_single_process.c` file is a helper method for the 
 
 `int main()`
 
-Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 1000000. The times will be compared to our multi-threaded algorithm.
+Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 20000. The times will be compared to our multi-threaded algorithm.
 
 ##### Summary of Data Types
 
