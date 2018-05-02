@@ -130,7 +130,7 @@ void *quicksort_setup (void *arguments){
   return 0;
 }
 
-partition (int *arr, long low, long high)
+int partition (int *arr, long low, long high)
 {
     int pivot = arr[high];
 
