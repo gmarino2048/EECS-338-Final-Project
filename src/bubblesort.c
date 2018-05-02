@@ -54,11 +54,7 @@ int main (int argc, char* argv[]) {
   struct timeval start_time, stop_time, elapsed_time;
 
   for (int threads = 1; threads < 128; threads = threads *2){
-<<<<<<< HEAD
     for (int size = 1; size < 2500; size = size *2){
-=======
-    for (int size = 1; size < 20000; size = size *2){
->>>>>>> 1a4d6705094fc5022025dd1fe322f1f88da79da6
       int *arr = randomArray(size);
 
       gettimeofday(&start_time,NULL);
