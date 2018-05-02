@@ -327,6 +327,4 @@ I completed the mergesort_single_process.c, bubblesort_single_process.c, and qui
 
 #### Guy Marino
 
-I primarily worked on the report for the beta, as I was able to implement the merge and bubble sort sections as well as work on the main section and create all of the images used in the report. I also worked on the quicksort.c file rudimentarily and created the makefile to generate the executable file for this report.
-
-Moving forward, I will bring multithreading into quicksort and bubble sort, as it is not currently supported. I am also going to attempt to make 3D plots of the data in python, if time permits.
+I completed the mergesort.c, quicksort.c, and bubblesort.c files. I also helped with the makefile. I modified the readme also. I implemented the multi-threaded processes in almost their entirety outside of bug fixing.
