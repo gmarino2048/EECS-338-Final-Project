@@ -27,7 +27,11 @@ This function will be called by each child thread and will be responsible for sp
 
 `void merge(int *arr, long start, long middle, long stop)`
 
-The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted. Longs are passed for the 2nd, 3rd, and 4th arguments to avoid segmentation faults
+The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted. Longs are passed for the 2nd, 3rd, and 4th arguments to avoid segmentation faults.
+
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
 
 ##### Summary of Data Types
 
@@ -39,7 +43,21 @@ The only additional data type will be the struct used to pass information from t
 
 ##### Sample Output
 
-Merge Sort returns no output.
+1,1,0.000202
+1,2,0.000161
+1,4,0.000151
+1,8,0.000159
+1,16,0.000160
+1,32,0.000152
+1,64,0.000148
+1,128,0.000059
+1,256,0.000087
+1,512,0.000125
+1,1024,0.000265
+1,2048,0.000450
+1,4096,0.000656
+1,8192,0.001443
+1,16384,0.002779
 
 ### bubblesort.c
 
@@ -117,6 +135,10 @@ The partition function of the "quicksort.c" file can take an array "arr[]" and a
  `int quicksort_setup(int list[], int maxThreads)`
 
  This method of the "quicksort.c" file is used to ensure that the maximum number of threads are not in use.
+ 
+ `int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
 
 ##### Summary of Data Types
 
@@ -128,7 +150,26 @@ The only data type that we created for this file is the struct `params` that wil
 
 ##### Sample Output
 
-Quick Sort returns no output.
+1,1,0.000246
+1,2,0.000162
+1,4,0.000137
+1,8,0.000107
+1,16,0.000125
+1,32,0.000101
+1,64,0.000069
+1,128,0.000084
+1,256,0.000092
+1,512,0.000188
+1,1024,0.000206
+1,2048,0.000297
+1,4096,0.000593
+1,8192,0.001565
+1,16384,0.002851
+1,32768,0.006150
+1,65536,0.014101
+1,131072,0.029801
+1,262144,0.057098
+1,524288,0.112673
 
 ### mergesort_single_process.c
 
@@ -143,6 +184,10 @@ This function contained in `mergesort_single_process.c` is used as the main call
 `void merge(int array[], int temp[], long low, long mid, long high)`
 
 This function of the `mergesort_single_process.c` file merges the array back together after it has been split based off which value is larger. It does this by utilizing the array `temp[]` to store the values of `array[]` in the desired order. At the end of the algorithm, the updated values in `temp[]` are placed in `array[]`, and `temp[]` is emptied to ensure no overflow errors. Longs are passed to avoid segmentation faults.
+
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
 
 `int main()`
 
@@ -190,6 +235,10 @@ This method of the `mergesort_single_process.c` file will sort a list of values 
 
 This method of the `mergesort_single_process.c` file is a helper method for the `bubblesort(int array[], long index)` method. It is used to swap the value of index1, and index2. Utilized primarily to make the code more readable, longs are passed to avoid segmentation faults.
 
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
+
 `int main()`
 
 Method utilized to print the times it takes to sort the array at increments i = i * 2, up to 20000. The times will be compared to our multi-threaded algorithm.
@@ -233,6 +282,10 @@ This function of `quicksort_single_process.c` determines the partition index to 
 `int swap(int *arr, long index1, long index2)`
 
 This function is a helper method that swaps two values within an array. Longs are passed to avoid segmentation faults.
+
+`int *randomArray (long size)`
+
+Method used to create an array of size `size` filled with random values between 0 and 2147483647. This method is used for testing.
 
 `int main()`
 
