@@ -4,7 +4,7 @@
 
 ### Makefile
 
-The makefile is responsible for compiling all of the files and merging them together. The makefile first compiles all of the c programs into .o files and then stitches them together at the end. The result of a successful make should be a binary file titled run in the root folder of the project.
+The makefile is responsible for compiling all of the files and merging them together. The makefile first compiles all of the c programs into .o files and then stitches them together at the end. The results of the experiment we conducted is in the out file of the zip that was downloaded. There is one csv file per c file.
 
 ### mergesort.c
 
