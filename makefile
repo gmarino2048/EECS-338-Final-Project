@@ -25,9 +25,9 @@ bubblesort_single_process: $(SRC)bubblesort_single_process.c
 	$(CC) -o $(BIN)bubblesort_single_process $(SRC)bubblesort_single_process.c $(ARGS)
 
 run:
-	./$(BIN)mergesort >> $(TXT)mergesort.txt
-	./$(BIN)quicksort >> $(TXT)quicksort.txt
-	./$(BIN)bubblesort >> $(TXT)bubblesort.txt
-	./$(BIN)mergesort_single_process >> $(TXT)mergesort_single_process.txt
-	./$(BIN)quicksort_single_process >> $(TXT)quicksort_single_process.txt
-	./$(BIN)bubblesort_single_process >> $(TXT)bubblesort_single_process.txt
+	(echo 'Threads,Size,Time [s]' && ./$(BIN)mergesort) > $(TXT)mergesort.csv
+	(echo 'Threads,Size,Time [s]' && ./$(BIN)quicksort) > $(TXT)quicksort.csv
+	(echo 'Threads,Size,Time [s]' && ./$(BIN)bubblesort) > $(TXT)bubblesort.csv
+	(echo 'Size,Time [s]' && ./$(BIN)mergesort_single_process) > $(TXT)mergesort_single_process.csv
+	(echo 'Size,Time [s]' && ./$(BIN)quicksort_single_process) > $(TXT)quicksort_single_process.csv
+	(echo 'Size,Time [s]' && ./$(BIN)bubblesort_single_process) > $(TXT)bubblesort_single_process.csv

@@ -84,8 +84,6 @@ void quicksort(int *arr, int threads, long size){
   }
 
   pthread_join(parent, NULL);
-
-  printf("finished\n");
 }
 
 
