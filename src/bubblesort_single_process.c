@@ -17,7 +17,7 @@ int *randomArray(long size);
 int main(){
   struct timeval start_time, stop_time, elapsed_time;
   long i;
-  for(i = 1; i < 10000; i = i * 2){
+  for(i = 1; i < 20000; i = i * 2){
     int *unsorted = malloc(i * sizeof(int));
     unsorted = randomArray(i);
     gettimeofday(&start_time, NULL);
