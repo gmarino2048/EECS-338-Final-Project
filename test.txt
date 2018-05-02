@@ -1,7 +1,0 @@
-bin
-images
-makefile
-out
-README.md
-src
-test.txt
