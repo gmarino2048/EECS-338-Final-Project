@@ -1,3 +1,7 @@
+/*Noah Houpt and Guy Marino's implementation of bubblesort
+for multiple processes. Is tested for various NUM_THREADS and
+array sizes */
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <semaphore.h>
