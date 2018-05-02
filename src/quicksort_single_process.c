@@ -15,7 +15,7 @@ int partition(int array[], long lowIndex, long highIndex);
 void swap (int *arr, long index1, long index2);
 int *randomArray(long size);
 
-int main(int argc, char* argv[]){
+int main(){
   struct timeval start_time, stop_time, elapsed_time;
   long i;
   for(i = 1; i < 100000000; i = i * 2){
