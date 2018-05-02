@@ -17,7 +17,7 @@ This method will allow thread reuse while also ensuring that there is a maximal 
 
 ##### Summary of Functions
 
-`int[] mergesort(int arr[], long threads, long size)`
+`void mergesort(int *arr, long threads, long size)`
 
 This function will mergesort the list using the function `mergesort_helper`. This function is a wrapper funciton based designed to sort the entire array. A long is passed for the threads and size arguments to avoid segmentation faults. 
 
