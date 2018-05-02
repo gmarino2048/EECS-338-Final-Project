@@ -12,8 +12,6 @@ https://gist.github.com/mycodeschool/9678029 */
 # include <limits.h>
 # include <sys/time.h>
 
-//gcc mergesort.c -o mergesort -lpthread -Wall -DTRACE --std=c99 -D_BSD_SOURCE -lrt
-
 int threadCount;
 int MAX_THREADS;
 
