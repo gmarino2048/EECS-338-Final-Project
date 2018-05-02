@@ -249,61 +249,6 @@ N = 524288, Time = 0.248797
 N = 1048576, Time = 0.442365
 N = 2097152, Time = 1.491803
 
-### main.c
-
-Main is utilized to test our sorting algoirthms. The methodology for this is to time the functions at each parameter. The parameters we will be testing are as follows:
-
-Number of threads: 1, 2, 4, 8, 16, 32, 64
-
-Length of Array: 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000,
-500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, and 500000000
-
-Sorting Algorithms: Bubble Sort, Quick Sort, Merge Sort
-
-Looking at the different parameters, it can be calculated that there will be 504 different data points to look at, with each algorithm having 168 points of data.
-
-The arrays will be generated using the function randomArray(), where randomArray() takes in a parameter for the size of the array, a lower bound and an upper bound.
-
-##### Summary of Functions
-
-`void main()`
-
-This function is utilized in the file "main.c". The purpose of this method is to produce a csv file that will produce an output that is explained further later in the report. The function utilizes the system time in order to time how long it takes each sorting algorithm at different parameters to fully sort its array. Additionally, the method utilizes the `randomArray` function in order to produce psudo-random arrays.
-
-`void randomArray(int lowerBound, int upperBound, int arraySize)`
-
-This function is utilized in the file "main.c". The purpose of this method is to generate a random array. The function utilizes the system time to create a psudo-random number that will be added into an array and later sorted for the purpose of testing. There is additional functionallity in the upperBound and lowerBound arguments, but for clarity in our main method we used fixed values here.
-
-`int validate(int *array, int size)`
-
-The validate function takes a pointer to the head of an array and ensures that the array is, in fact, sorted. If the array is sorted, then the output is written to a file. If the array is not sorted then the function throws an error and terminates.
-
-`int writeout(struct data *arguments)`
-
-This function is responsible for taking the data from each successful run and outputting it to a file. The data structure is what will contain each of the integers and doubles that the program will write to
-
-##### Summary of Data Types
-
-Since the main script is responsible for timing each of the functions, we will utilize the struct "timeval" from homework 4 in order to time our functions. We will also use an array of the maximum size, 500000000, and modify the values in that array continuously for each of the tests. 
-
-##### Sample Output
-
-The main method will output a csv file that can then be plotted. The csv file will be in the following format:
-
-`threads,elements,merge_time,quick_time,bubble_time`
-
-Some artificially generated output (NOT ACCURATE) can be seen below:
-
-```
-...
-16,50000,20.422,32.542,85.279
-16,100000,40.683,64.114,164.983
-...
-32,100,20.478,20.824,15.548
-32,200,21.643,21.743,15.933
-...
-```
-
 ## Work Distribution
 
 #### Noah Houpt
