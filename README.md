@@ -17,17 +17,17 @@ This method will allow thread reuse while also ensuring that there is a maximal 
 
 ##### Summary of Functions
 
-`int[] mergesort(int arr[], int size, int num_threads)`
+`int[] mergesort(int arr[], long threads, long size)`
 
-This function will mergesort the list using the function `mergesort_helper`. This function is a wrapper funciton based designed to sort the entire array.
+This function will mergesort the list using the function `mergesort_helper`. This function is a wrapper funciton based designed to sort the entire array. A long is passed for the threads and size arguments to avoid segmentation faults. 
 
-`void *mergesort_helper(void *args)`
+`void *mergesort_helper(void *arguments)`
 
 This function will be called by each child thread and will be responsible for splitting each half and then merging the two halves together using `merge`. The `mergesort_helper` function will see if it can instantiate a new thread, if it can it will add the thread to the array of threads and call `mergesort_helper` on the first part of the list while the child thread sorts the other.
 
-`void merge(int arr[], int first, int second, int stop)`
+`void merge(int *arr, long start, long middle, long stop)`
 
-The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted.
+The merge function merges the lists from first to second, and then from second to stop. The merge function assumes that both lists are already sorted, and goes through each part of the list comparing the least significant elements until it has completed merging the list. The resulting list should then be sorted. Longs are passed for the 2nd, 3rd, and 4th arguments to avoid segmentation faults
 
 ##### Summary of Data Types
 
